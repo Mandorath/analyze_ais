@@ -22,6 +22,19 @@ class PreProcess():
         df = pd.read_csv(file, index_col=None, header=0)
         return df
 
+    def extract_uniq_val(self, df, column):
+        """
+        Find rows that matche string @elem in column @column.
+
+        Args:
+            elem (str): String to match when searching rows.
+            column (str): Contains name of the column to match the string.
+            df (df): Pandas dataframe
+
+        """
+        unique_val = df[column].unique()
+        return unique_val
+
     def find_rows(self, df, elem, column):
         """
         Find rows that matche string @elem in column @column.
