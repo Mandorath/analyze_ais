@@ -25,5 +25,8 @@ if __name__ == '__main__':
     df = prepros.csv_to_df(csv_file)
     df = prepros.extract_rows_type(df, elem, column, True, out_file)
     uniq = prepros.extract_uniq_val(df, 'MMSI')
+    for val in uniq:
+        df_rows_mmsi = prepros.find_rows(df, val, 'MMSI')
+        search_ais_gaps(df_rows_mmsi)
     print(uniq)
     # csv = file_h.read_csv(csv_file)
