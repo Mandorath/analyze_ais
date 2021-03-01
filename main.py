@@ -24,7 +24,7 @@ if __name__ == '__main__':
     yml_file = options.YAML
     # load instructions
     instruct = yml.read_file(yml_file)
-    print(yml.dump(instruct))
+    print(yml.safe_dump(instruct))
     # load CSV file
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
