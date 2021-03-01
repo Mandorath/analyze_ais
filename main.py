@@ -24,6 +24,6 @@ if __name__ == '__main__':
     out_file = options.OUTPUT
     df = prepros.csv_to_df(csv_file)
     df = prepros.extract_rows_type(df, elem, column, True, out_file)
-    uniq = prepros.find_rows(df, 'MMSI')
+    uniq = prepros.extract_uniq_val(df, 'MMSI')
     print(uniq)
     # csv = file_h.read_csv(csv_file)
