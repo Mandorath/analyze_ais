@@ -1,3 +1,4 @@
+#!/bin/python
 """Main script."""
 import fun_logger
 from man_file import FileHandle
