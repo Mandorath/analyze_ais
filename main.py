@@ -20,6 +20,6 @@ if __name__ == '__main__':
 
     csv_file = options.CSV
     out_file = options.OUTPUT
-    df = prepos.csv_to_df(csv_file)
-    df = prepos.extract_rows_type(df, elem, column, True, out_file)
+    df = prepros.csv_to_df(csv_file)
+    df = prepros.extract_rows_type(df, elem, column, True, out_file)
     # csv = file_h.read_csv(csv_file)
