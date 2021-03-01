@@ -5,7 +5,7 @@ import ruamel.yaml
 from extract import PreProcess
 from command_line import parseOptions
 from pro_yml import yaml_extract
-from search_ais_gaps import search_ais_gaps
+# from search_ais_gaps import search_ais_gaps
 
 log = fun_logger.init_log()
 yml_tst = ruamel.yaml
