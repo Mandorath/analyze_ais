@@ -1,7 +1,6 @@
 #!/bin/python
 """Main script."""
 import fun_logger
-from mfile import FileHandle
 from extract import PreProcess
 from command_line import parseOptions
 
@@ -17,7 +16,6 @@ if __name__ == '__main__':
     fun_logger.handle_log(log, options.LOG)
     fun_logger.handle_console(log)
 
-    file_h = Filehandle()
     prepros = PreProcess()
 
     csv_file = options.CSV
