@@ -1,21 +1,17 @@
 extract:
-  base_stations:
-    elem: "Base Station"
+  - elem: "Base Station"
     column: "Type of mobile"
     out_file: "Basestations.out"
     remove_in_df: True
-  aton:
-    elem: "AtoN"
+  - elem: "AtoN"
     column: "Type of mobile"
     out_file: "aton.out"
     remove_in_df: True
-  classA:
-    elem: "Class A"
+  - elem: "Class A"
     column: "Type of mobile"
     out_file: "classA.out"
     remove_in_df: True
-  classB:
-    elem: "Class B"
+  - elem: "Class B"
     column: "Type of mobile"
     out_file: "classB.out"
     remove_in_df: True
