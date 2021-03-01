@@ -34,7 +34,7 @@ if __name__ == '__main__':
         elem = extract['elem']
         column = extract['column']
         out_file = extract['out_file']
-        rem_df = extract['rem_df']
+        rem_df = extract['remove_in_df']
         df = prepros.extract_rows_type(df, elem, column, rem_df, out_file)
     # uniq = prepros.extract_uniq_val(df, 'MMSI')
     # search_mmsi(df, 'MMSI', uniq)
