@@ -17,6 +17,7 @@ class PreProcess():
 
         Args:
             file (str); Contains filename of the CSV file to read from.
+
         """
         df = pd.read_csv(file, index_col=None, header=0)
         return df
@@ -29,8 +30,11 @@ class PreProcess():
             elem (str): String to match when searching rows.
             column (str): Contains name of the column to match the string.
             df (df): Pandas dataframe
-        """
 
+        """
+        log.info("Creating new dataframe matching value {0} in column {1}".format(elem, column))
+        df_base = df[df[column] == elem]
+        return df_base
 
     def extract_rows_type(self, df, elem, column, remove, file_name):
         """
@@ -44,6 +48,7 @@ class PreProcess():
            remove (bool): If true remove the rows from the dataframe
                           after extraction from main pandas dataframe.
            file_name (str): The file the extracted rows should be written to.
+
         """
         log.info("Extracting rows with value {0} from column {1}".format(elem, column))
         df_base = df[df[column] == elem]
@@ -76,4 +81,5 @@ class PreProcess():
             filename: Contains file name the dataframe should be written to.
 
         """
+        log.info("Writing to CSV file {0}".format(filename))
         df.to_csv(filename)
