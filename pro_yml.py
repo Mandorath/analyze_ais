@@ -6,7 +6,8 @@ yml = ruamel.yaml
 
 log = logging.getLogger(__name__)
 
-class yaml_replacer():
+
+class yaml_extract():
     """Modify yaml dicts using ruamel."""
 
     def __init__(self):
@@ -34,7 +35,6 @@ class yaml_replacer():
         except yml.YAMLError as e:
             raise Exception('Failed reading content of YAML file: '
                             '"{0}"; {1}'.format(yaml_file, e))
-
 
     def write_to_file(self, file, dump):
         """Write yaml dictionary to file."""
