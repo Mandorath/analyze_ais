@@ -25,7 +25,7 @@ class parseOptions():
                 '--output-file-name',
                 dest="OUTPUT",
                 action="store",
-                default="desktop",
+                default="out.csv",
                 help="""
                 Specify csv output file.
                 """,
