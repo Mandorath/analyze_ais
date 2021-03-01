@@ -5,6 +5,7 @@ import ruamel.yaml
 from extract import PreProcess
 from command_line import parseOptions
 from pro_yml import yaml_extract
+from search_ais_gaps import search_ais_gaps
 
 log = fun_logger.init_log()
 yml_tst = ruamel.yaml
@@ -27,6 +28,7 @@ if __name__ == '__main__':
     print(yml_tst.safe_dump(instruct))
     # load CSV file
     df = prepros.csv_to_df(csv_file)
+    uniq = prepros.extract_uniq_val(df, 'MMSI')
     # For all in extract block extract data.
     for extract in instruct['extract']:
         print(yml_tst.safe_dump(extract))
@@ -35,7 +37,7 @@ if __name__ == '__main__':
         out_file = extract['out_file']
         rem_df = extract['rem_df']
         df = prepros.extract_rows_type(df, elem, column, rem_df, out_file)
-
+    search_mmsi(df, 'MMSI', uniq)
 
 
     # csv = file_h.read_csv(csv_file)
