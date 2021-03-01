@@ -29,6 +29,7 @@ if __name__ == '__main__':
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
     for extract in instruct['extract']:
+        print(yml_tst.safe_dump(extract))
         elem = extract['elem']
         column = extract['column']
         out_file = extract['out_file']
