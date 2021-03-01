@@ -29,7 +29,7 @@ class parseOptions():
                 help="""
                 Specify csv output file.
                 """,
-                required=False,
+                required=True,
             )
         self.parser.add_argument(
                 '--log-file',
