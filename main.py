@@ -28,12 +28,12 @@ if __name__ == '__main__':
     # load CSV file
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
-    for extract in instruct['extract']:
+    for extract, data in instruct['extract'].items:
         print(yml_tst.safe_dump(extract))
-        elem = extract['elem']
-        column = extract['column']
-        out_file = extract['out_file']
-        rem_df = extract['rem_df']
+        elem = data['elem']
+        column = data['column']
+        out_file = data['out_file']
+        rem_df = data['rem_df']
         df = prepros.extract_rows_type(df, elem, column, rem_df, out_file)
 
 
