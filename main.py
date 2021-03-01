@@ -7,7 +7,7 @@ from command_line import parseOptions
 from pro_yml import yaml_extract
 
 log = fun_logger.init_log()
-yml = ruamel.yaml
+yml_tst = ruamel.yaml
 
 if __name__ == '__main__':
     """Primary function."""
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     yml_file = options.YAML
     # load instructions
     instruct = yml.read_file(yml_file)
-    print(yml.safe_dump(instruct))
+    print(yml_tst.safe_dump(instruct))
     # load CSV file
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
