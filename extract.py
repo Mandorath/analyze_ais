@@ -27,7 +27,6 @@ class PreProcess():
         Find rows that matche string @elem in column @column.
 
         Args:
-            elem (str): String to match when searching rows.
             column (str): Contains name of the column to match the string.
             df (df): Pandas dataframe
 
