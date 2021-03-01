@@ -1,7 +1,7 @@
 #!/bin/python
 """Main script."""
 import fun_logger
-from man_file import FileHandle
+from mfile import FileHandle
 from extract import PreProcess
 from command_line import parseOptions
 

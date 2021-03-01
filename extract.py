@@ -1,8 +1,8 @@
 """Extract/pre-process data."""
-import fun_logger
 import pandas as pd
+import logging
 
-log = fun_logger.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 class PreProcess():

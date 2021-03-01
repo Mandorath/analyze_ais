@@ -1,8 +1,8 @@
 """Class for handling files."""
 import csv
-import fun_logger
+import logging
 
-log = fun_logger.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 class FileHandle():
