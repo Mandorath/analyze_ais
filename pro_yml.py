@@ -6,7 +6,6 @@ yml = ruamel.yaml
 
 log = logging.getLogger(__name__)
 
-
 class yaml_replacer():
     """Modify yaml dicts using ruamel."""
 
@@ -14,7 +13,8 @@ class yaml_replacer():
         """Constructor for class."""
 
     def read_file(self, yaml_file):
-        """Construct a new YamlDoc instance based on the given file.
+        """
+        Construct a new YamlDoc instance based on the given file.
         Args:
             yaml_file (str): string containing the locaiton of a file
             containing yaml data.
@@ -22,6 +22,7 @@ class yaml_replacer():
             from the file.
 
         An exception is raised if the file is invalid or cannot be read.
+
         """
         try:
             with open(yaml_file, "r") as f:
