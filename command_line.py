@@ -42,5 +42,16 @@ class parseOptions():
                 """,
                 required=False,
             )
+        self.parser.add_argument(
+                '--yaml-file',
+                dest="YAML",
+                action="store",
+                default="test.yaml",
+                help="""
+                Specify yaml file.
+                Defaults to test.yaml in local directory.
+                """,
+                required=True,
+            )
         args = self.parser.parse_args()
         return args

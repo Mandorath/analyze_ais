@@ -7,26 +7,31 @@ from pro_yml import yaml_extract
 
 log = fun_logger.init_log()
 
-elem = "Base Station"
-column = "Type of mobile"
-
 if __name__ == '__main__':
     """Primary function."""
     parse_options = parseOptions()
     options = parse_options.arguments()
+    prepros = PreProcess()
+    yml = yaml_extract()
     # Configure logging
     fun_logger.handle_log(log, options.LOG)
     fun_logger.handle_console(log)
-
-    prepros = PreProcess()
-
+    # Parse argument options
     csv_file = options.CSV
     out_file = options.OUTPUT
+    yml_file = options.YAML
+    # load instructions
+    instruct = yml.read_file(yml_file)
+    # load CSV file
     df = prepros.csv_to_df(csv_file)
-    df = prepros.extract_rows_type(df, elem, column, True, out_file)
-    uniq = prepros.extract_uniq_val(df, 'MMSI')
-    for val in uniq:
-        df_rows_mmsi = prepros.find_rows(df, val, 'MMSI')
-        search_ais_gaps(df_rows_mmsi)
-    print(uniq)
+    # For all in extract block extract data.
+    for extract in instruct['extract']:
+        elem = extract['elem']
+        column = extract['column']
+        out_file = extract['out_file']
+        rem_df = extract['rem_df']
+        df = prepros.extract_rows_type(df, elem, column, rem_df, out_file)
+
+
+
     # csv = file_h.read_csv(csv_file)

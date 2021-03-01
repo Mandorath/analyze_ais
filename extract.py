@@ -41,7 +41,7 @@ class PreProcess():
         Args:
             elem (str): String to match when searching rows.
             column (str): Contains name of the column to match the string.
-            df (df): Pandas dataframe
+            df (df): Pandas dataframe.
 
         """
         log.info("Creating new dataframe matching value {0} in column {1}".format(elem, column))
