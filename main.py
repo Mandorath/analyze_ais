@@ -74,7 +74,7 @@ if __name__ == '__main__':
     if 'extract_vessel_types' in instruct:
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=extract_vessel_types,
-                                        args=(extract, df,))
+                                        args=(extract, df, df_ships,))
             p.start()
 
 
