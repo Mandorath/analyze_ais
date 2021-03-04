@@ -20,7 +20,7 @@ def extract_classes(extract, df):
     column = extract['column']
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
-    df, df_base = prepros.extract_rows_type(df, elem, column)
+    df_base = prepros.extract_rows_type(df, elem, column)
     prepros.csv_out(df_base, out_file)
     if rem_df:
         df = prepros.remove_rows(df, elem, column)
@@ -33,13 +33,15 @@ def extract_vessel_types(extract, df, df_ships):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
-    df, df_base = prepros.extract_rows_type(df, elem, column)
+    df_base = prepros.extract_rows_type(df, elem, column)
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
+
     for uni_val in l_unique:
-        print(uni_val)
-        df, df_ship_type = prepros.extract_rows_type(df, uni_val,
-                                                     unique_col)
-        print(df_ship_type)
+        pr = multiprocessing.Process(target=prepros.extract_rows_type,
+                                     args=(df, uni_val, unique_col,
+                                           df_ships_type))
+        pr.start()
+        pr.join()
         df_ships = pd.concat([df_ships, df_ship_type])
         # df = prepros.remove_rows(df, uni_val, unique_col)
         # prepros.csv_out(df, "remaining.out")
