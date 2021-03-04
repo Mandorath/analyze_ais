@@ -2,6 +2,7 @@
 """Main script."""
 import fun_logger
 import ruamel.yaml
+import pandas as pd
 from extract import PreProcess
 from command_line import parseOptions
 from pro_yml import yaml_extract
@@ -40,7 +41,7 @@ if __name__ == '__main__':
             prepros.csv_out(df_base, out_file)
             if rem_df:
                 df = prepros.remove_rows(df, elem, column)
-
+    df_ships = pd.DataFrame()
     if 'extract_vessel_types' in instruct:
         for extract in instruct['extract_vessel_types']:
             print(yml_tst.safe_dump(extract))
@@ -56,10 +57,10 @@ if __name__ == '__main__':
                 df, df_ship_type = prepros.extract_rows_type(df, uni_val,
                                                              unique_col)
                 print(df_ship_type)
-                prepros.csv_out(df_ship_type, out_file)
-                df = prepros.remove_rows(df, uni_val, unique_col)
-                prepros.csv_out(df, "remaining.out")
-
+                df_ships = pd.concat([df_ships, df_ship_type])
+                # df = prepros.remove_rows(df, uni_val, unique_col)
+                # prepros.csv_out(df, "remaining.out")
+            prepros.csv_out(df_ships, out_file)
 
             # prepros.csv_out(df_unique, out_file)
         # if rem_df:
