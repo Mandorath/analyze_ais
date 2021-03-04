@@ -56,8 +56,10 @@ if __name__ == '__main__':
                 df, df_ship_type = prepros.extract_rows_type(df, uni_val,
                                                              unique_col)
                 print(df_ship_type)
-                #prepros.csv_out(df_ship_type, out_file)
-                #df = prepros.remove_rows(df, uni_val, column)
+                prepros.csv_out(df_ship_type, out_file)
+                df = prepros.remove_rows(df, uni_val, column)
+                prepros.csv_out(df, "remaining.out")
+
 
             # prepros.csv_out(df_unique, out_file)
         # if rem_df:
