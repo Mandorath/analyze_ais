@@ -1,0 +1,53 @@
+extract_vessel_types:
+  - elem: "Cargo"
+    column: "Ship type"
+    out_file: "Cargo.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Military"
+    column: "Ship type"
+    out_file: "Military.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Fishing"
+    column: "Ship type"
+    out_file: "Fishing.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Passenger"
+    column: "Ship type"
+    out_file: "Passenger.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Pleasure"
+    column: "Ship type"
+    out_file: "Pleasure.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Other"
+    column: "Ship type"
+    out_file: "Other.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Sailing"
+    column: "Ship type"
+    out_file: "Sailing.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Tanker"
+    column: "Ship type"
+    out_file: "Tanker.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Reserved"
+    column: "Ship type"
+    out_file: "Reserved.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Tug"
+    column: "Ship type"
+    out_file: "Tug.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+
+# Towing long/wide
