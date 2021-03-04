@@ -51,7 +51,7 @@ if __name__ == '__main__':
             unique_col = extract['unique_column']
             df, df_base = prepros.extract_rows_type(df, elem, column)
             l_unique = prepros.extract_uniq_val(df_base, unique_col)
-            for uni_val in df_unique:
+            for uni_val in l_unique:
                 df, df_ship_type = prepros.extract_rows_type(df, uni_val, column)
                 print(df_ship_type)
                 #prepros.csv_out(df_ship_type, out_file)
