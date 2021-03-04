@@ -29,27 +29,29 @@ if __name__ == '__main__':
     # load CSV file
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
-    for extract in instruct['extract']:
-        print(yml_tst.safe_dump(extract))
-        elem = extract['elem']
-        column = extract['column']
-        out_file = extract['out_file']
-        rem_df = extract['remove_in_df']
-        df, df_base = prepros.extract_rows_type(df, elem, column)
-        prepros.csv_out(df_base, out_file)
-        if rem_df:
-            df = prepros.remove_rows(df, elem, column)
+    if instruct['extract']:
+        for extract in instruct['extract']:
+            print(yml_tst.safe_dump(extract))
+            elem = extract['elem']
+            column = extract['column']
+            out_file = extract['out_file']
+            rem_df = extract['remove_in_df']
+            df, df_base = prepros.extract_rows_type(df, elem, column)
+            prepros.csv_out(df_base, out_file)
+            if rem_df:
+                df = prepros.remove_rows(df, elem, column)
 
-    for extract in instruct['extract_vessel_types']:
-        print(yml_tst.safe_dump(extract))
-        elem = extract['elem']
-        column = extract['column']
-        out_file = extract['out_file']
-        rem_df = extract['remove_in_df']
-        unique_col = extract['unique_column']
-        df, df_base = prepros.extract_rows_type(df, elem, column)
-        df_unique = prepros.extract_uniq_val(df_base, unique_col)
-        prepros.csv_out(df_unique, out_file)
+    if instruct['extract_vessel_types']:
+        for extract in instruct['extract_vessel_types']:
+            print(yml_tst.safe_dump(extract))
+            elem = extract['elem']
+            column = extract['column']
+            out_file = extract['out_file']
+            rem_df = extract['remove_in_df']
+            unique_col = extract['unique_column']
+            df, df_base = prepros.extract_rows_type(df, elem, column)
+            df_unique = prepros.extract_uniq_val(df_base, unique_col)
+            prepros.csv_out(df_unique, out_file)
         # if rem_df:
         #    df = prepros.remove_rows(df, elem, column)
     # uniq = prepros.extract_uniq_val(df, 'MMSI')
