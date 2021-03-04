@@ -29,7 +29,7 @@ if __name__ == '__main__':
     # load CSV file
     df = prepros.csv_to_df(csv_file)
     # For all in extract block extract data.
-    if instruct['extract']:
+    if 'extract' in instruct:
         for extract in instruct['extract']:
             print(yml_tst.safe_dump(extract))
             elem = extract['elem']
@@ -41,7 +41,7 @@ if __name__ == '__main__':
             if rem_df:
                 df = prepros.remove_rows(df, elem, column)
 
-    if instruct['extract_vessel_types']:
+    if 'extract_vessel_types' in instruct:
         for extract in instruct['extract_vessel_types']:
             print(yml_tst.safe_dump(extract))
             elem = extract['elem']
