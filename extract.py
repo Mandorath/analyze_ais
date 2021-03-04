@@ -48,7 +48,7 @@ class PreProcess():
         df_base = df[df[column] == elem]
         return df_base
 
-    def extract_rows_type(self, df, elem, column, remove, file_name):
+    def extract_rows_type(self, df, elem, column):
         """
         Extract all rows based on value 'elem' in column 'column'.
 
@@ -57,17 +57,16 @@ class PreProcess():
            column (str): Contains name of the column that the value 'elem'
                          should be matched.
            df: Pandas dataframe
-           remove (bool): If true remove the rows from the dataframe
-                          after extraction from main pandas dataframe.
-           file_name (str): The file the extracted rows should be written to.
-
         """
         log.info("Extracting rows with value {0} from column {1}".format(elem, column))
         df_base = df[df[column] == elem]
-        self.csv_out(df_base, file_name)
-        if remove:
-            self.remove_rows(df, elem, column)
         return df
+
+    def  search_mmsi(df, elem, uniq):
+        """Extract all rows from a given MMSI"""
+        for val in uniq:
+            df_rows_mmsi = prepros.find_rows(df, val, 'MMSI')
+
 
     def remove_rows(self, df, elem, column):
         """
