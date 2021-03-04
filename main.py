@@ -26,7 +26,7 @@ def extract_classes(extract, df):
         df = prepros.remove_rows(df, elem, column)
 
 
-def extract_vessel_types(extract, df):
+def extract_vessel_types(extract, df, df_ships):
     print(yml_tst.safe_dump(extract))
     elem = extract['elem']
     column = extract['column']
