@@ -60,7 +60,7 @@ class PreProcess():
         """
         log.info("Extracting rows with value {0} from column {1}".format(elem, column))
         df_base = df[df[column] == elem]
-        return df
+        return df, df_base
 
     def  search_mmsi(df, elem, uniq):
         """Extract all rows from a given MMSI"""
