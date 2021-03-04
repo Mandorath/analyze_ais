@@ -37,15 +37,17 @@ def extract_vessel_types(extract, df, df_ships):
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
 
     for uni_val in l_unique:
+        ret_value = multiprocessing.Value("d", 0.0, lock=False)
         pr = multiprocessing.Process(target=prepros.extract_rows_type,
-                                     args=(df, uni_val, unique_col,
-                                           df_ships_type))
+                                     args=(df, uni_val, unique_col,))
         pr.start()
         pr.join()
+        df_ship_type = ret_value.value
         df_ships = pd.concat([df_ships, df_ship_type])
         # df = prepros.remove_rows(df, uni_val, unique_col)
         # prepros.csv_out(df, "remaining.out")
     prepros.csv_out(df_ships, out_file)
+
 
 if __name__ == '__main__':
     """Primary function."""
