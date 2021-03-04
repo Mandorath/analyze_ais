@@ -57,7 +57,7 @@ if __name__ == '__main__':
                                                              unique_col)
                 print(df_ship_type)
                 prepros.csv_out(df_ship_type, out_file)
-                df = prepros.remove_rows(df, uni_val, column)
+                df = prepros.remove_rows(df, uni_val, unique_col)
                 prepros.csv_out(df, "remaining.out")
 
 
