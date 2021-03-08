@@ -42,7 +42,7 @@ def extract_vessel_types(extract, df, df_ships):
                                      args=(df, uni_val, unique_col, ret_value))
         pr.start()
         pr.join()
-        df_ship_type = ret_value.value
+        df_ship_type = ret_value
         print(df_ship_type)
         #df_ships = pd.concat([df_ships, df_ship_type])
         # df = prepros.remove_rows(df, uni_val, unique_col)
