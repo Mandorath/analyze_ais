@@ -67,7 +67,7 @@ def extract_vessel_types(extract, df, df_ships):
         df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
         print(df_ship_type)
         log.info("Adding vessel with MMSI {0} dataframe to vessel_type dataframe".format(uni_val))
-        df_ships = pd.concat([df_ships, df_ship_type])
+        df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
         # df = prepros.remove_rows(df, uni_val, unique_col)
         # prepros.csv_out(df, "remaining.out")
     prepros.csv_out(df_ships, out_file)
