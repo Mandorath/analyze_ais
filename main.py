@@ -37,9 +37,9 @@ def extract_vessel_types(extract, df, df_ships):
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
 
     for uni_val in l_unique:
-        ret_value = multiprocessing.Value(df, uni_val, unique_col, lock=False)
+        ret_value = pd.DataFrame()
         pr = multiprocessing.Process(target=prepros.extract_rows_type,
-                                     args=([ret_value]))
+                                     args=(df, uni_val, unique_col, ret_value))
         pr.start()
         pr.join()
         df_ship_type = ret_value.value
