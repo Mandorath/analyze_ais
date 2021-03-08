@@ -1,0 +1,59 @@
+# elem: Define the actual vessel type, for the data set.
+# column: Define the column from which the vessel type needs to be extracted.
+# out_file: Specify the file in which the output should be stored.
+# remove_in_df: Specify if the extracted vessel type should be removed from the in-memory dataframe
+# unique_column: Specify the column from which the a ship can be uniquely identified.
+
+analyze:
+  - elem: "Cargo"
+    column: "Ship type"
+    out_file: "Cargo.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Military"
+    column: "Ship type"
+    out_file: "Military.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Fishing"
+    column: "Ship type"
+    out_file: "Fishing.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Passenger"
+    column: "Ship type"
+    out_file: "Passenger.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Pleasure"
+    column: "Ship type"
+    out_file: "Pleasure.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Other"
+    column: "Ship type"
+    out_file: "Other.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Sailing"
+    column: "Ship type"
+    out_file: "Sailing.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Tanker"
+    column: "Ship type"
+    out_file: "Tanker.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Reserved"
+    column: "Ship type"
+    out_file: "Reserved.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+  - elem: "Tug"
+    column: "Ship type"
+    out_file: "Tug.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+
+# Towing long/wide
