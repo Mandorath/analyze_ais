@@ -48,7 +48,7 @@ class PreProcess():
         df_base = df[df[column] == elem]
         return df_base
 
-    def extract_rows_type(self, df, elem, column):
+    def extract_rows_type(self, df, elem, column, return_dict):
         """
         Extract all rows based on value 'elem' in column 'column'.
 
@@ -61,6 +61,7 @@ class PreProcess():
         """
         log.info("Extracting rows with value {0} from column {1}".format(elem, column))
         df_base = df[df[column] == elem]
+        return_dict[elem] = df_base
         return df_base
 
     def remove_rows(self, df, elem, column):
