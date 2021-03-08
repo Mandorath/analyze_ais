@@ -57,9 +57,6 @@ class PreProcess():
            column (str): Contains name of the column that the value 'elem'
                          should be matched.
            df: Pandas dataframe
-           remove (bool): If true remove the rows from the dataframe
-                          after extraction from main pandas dataframe.
-           file_name (str): The file the extracted rows should be written to.
 
         """
         log.info("Extracting rows with value {0} from column {1}".format(elem, column))
