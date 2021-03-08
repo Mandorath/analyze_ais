@@ -10,6 +10,7 @@ fmt = '%Y-%m-%d %H:%M:%S'
 
 
 def search_ais_gaps(df, time):
+    df["# Timestamp"] = pd.to_datetime(df["# Timestamp"])
     minutes = df["# Timestamp"].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
     # timestamp_1 = datetime.strptime(row1[Timestamp], fmt)
     # timestamp_2 = datetime.strptime(row2[Timestamp], fmt)
