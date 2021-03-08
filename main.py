@@ -12,7 +12,7 @@ from pro_yml import yaml_extract
 log = fun_logger.init_log()
 yml_tst = ruamel.yaml
 df_ships = pd.DataFrame()
-
+df_ship_type = pd.DataFrame()
 
 def extract_classes(extract, df):
     print(yml_tst.safe_dump(extract))
@@ -37,9 +37,9 @@ def extract_vessel_types(extract, df, df_ships):
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
 
     for uni_val in l_unique:
-        ret_value = multiprocessing.Value("d", 0.0, lock=False)
+        ret_value = multiprocessing.Value(df, uni_val, unique_col, lock=False)
         pr = multiprocessing.Process(target=prepros.extract_rows_type,
-                                     args=(df, uni_val, unique_col,))
+                                     args=([ret_value]))
         pr.start()
         pr.join()
         df_ship_type = ret_value.value
