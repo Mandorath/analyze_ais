@@ -48,7 +48,22 @@ class PreProcess():
         df_base = df[df[column] == elem]
         return df_base
 
-    def extract_rows_type(self, df, elem, column, return_dict):
+    def extract_rows_type(self, df, elem, column):
+        """
+        Extract all rows based on value 'elem' in column 'column'.
+
+        Args:
+           elem (str): String, that matches with a value in specified column.
+           column (str): Contains name of the column that the value 'elem'
+                         should be matched.
+           df: Pandas dataframe
+
+        """
+        log.info("Extracting rows with value {0} from column {1}".format(elem, column))
+        df_base = df[df[column] == elem]
+        return df_base
+
+    def extract_unique_rows_type(self, df, elem, column, return_dict):
         """
         Extract all rows based on value 'elem' in column 'column'.
 
