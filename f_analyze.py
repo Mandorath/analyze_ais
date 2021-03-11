@@ -4,6 +4,7 @@ import numpy as np
 from extract import PreProcess
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+import geopandas as gpd
 
 prepros = PreProcess()
 
@@ -115,7 +116,7 @@ class AnalyzeDf():
         poly = Polygon(list_coordinates)
         return poly
 
-    def check_in_polygon(self, lat, long, polygon):
+    def check_in_polygon(self, df, polygon):
         """
         Check if a set of lat/long coordinates is within the provided polygon.
 
@@ -125,10 +126,14 @@ class AnalyzeDf():
             polygon: Polygon created based on a list of lat/long coordinates.
 
         """
-        point = Point(lat, long)
-        val = polygon.within(point)
-        val_2 = polygon.touches(point)
-        return val
+        # df_geo['geometry'] = df.apply(lambda x: Point([x['Longtitude', x['Latitude']], axis=1)
+        gdf = gpd.GeoDataFrame(
+              df, geometry=gpd.points_from_xy(
+                                     df.stop_location_longitiude,
+                                     df.stop_location_latitiude))
+        data_poly = gpd.read_file("Country_community_file.geojson")
+        joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
+        return joined_gdf
 
 
 #  def  search_mmsi(df, elem, uniq):
