@@ -3,14 +3,14 @@ import pandas as pd
 import numpy as np
 from extract import PreProcess
 from shapely.geometry import Point
-from shapely.gemotry.polygon import Polygon
+from shapely.geometry.polygon import Polygon
 
 prepros = PreProcess()
 
 
 fmt = '%Y-%m-%d %H:%M:%S'
 
-class analyze_df():
+class AnalyzeDf():
 
     def search_ais_gaps(df, column, time):
         """
