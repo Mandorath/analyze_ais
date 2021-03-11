@@ -84,6 +84,7 @@ class AnalyzeDf():
         """
         df_ret = pd.DataFrame()
         df_ret['h_incr'] = df[column].between(l_perc, h_perc)
+        df.join(df_ret['h_incr'])
         return df_ret
 
     def perc_change_decr(self, df, column, l_perc, h_perc):
@@ -114,7 +115,7 @@ class AnalyzeDf():
         poly = Polygon(list_coordinates)
         return poly
 
-    def check_in_polygon(self, point, polygon):
+    def check_in_polygon(self, lat, long, polygon):
         """
         Check if a set of lat/long coordinates is within the provided polygon.
 
@@ -124,7 +125,9 @@ class AnalyzeDf():
             polygon: Polygon created based on a list of lat/long coordinates.
 
         """
-        val = polygon.contains(point)
+        point = Point(lat, long)
+        val = polygon.within(point)
+        val_2 = polygon.touches(point)
         return val
 
 
