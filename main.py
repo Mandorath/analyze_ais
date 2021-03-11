@@ -97,17 +97,22 @@ def analyze_vessels(extract, df, df_ships):
         log.info("Extracting unique values.")
         df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
         log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
-        df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
+        df_ais = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
         log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
-        df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
-        df_ship_type = analyze.perc_change_incr(df_ship_type,
-                                                'gr_prct',
-                                                l_win,
-                                                u_win)
-        df_ship_type = analyze.perc_change_decr(df_ship_type,
-                                                'gr_prct',
-                                                l_win,
-                                                u_win)
+        df_change = analyze.grad_change(df_ship_type, s_column, w_size)
+        df_inc = analyze.perc_change_incr(df_change,
+                                          'gr_prct',
+                                          l_win,
+                                          u_win)
+        df_decr = analyze.perc_change_decr(df_change,
+                                           'gr_prct',
+                                           l_win,
+                                           u_win)
+
+        df_ship_type = pd.concat([df_ship_type, df_ais], ignore_index=True)
+        df_ship_type = df_ship_type.join(df_change)
+        df_ship_type = df_ship_type.join(df_inc)
+        df_ship_type = df_ship_type.join(df_decr)
         df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     prepros.csv_out(df_ships, out_file)
 

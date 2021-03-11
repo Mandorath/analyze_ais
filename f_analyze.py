@@ -28,15 +28,16 @@ class AnalyzeDf():
         """
         # Make the column a proper time_stamp instead of str/int
         AIS_Gap = time
+        df_ret = pd.DataFrame()
         df["# Timestamp"] = pd.to_datetime(df["# Timestamp"])
-        df['T_Gap'] = df["# Timestamp"].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
+        df_ret['T_Gap'] = df["# Timestamp"].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
         # timestamp_1 = datetime.strptime(row1[Timestamp], fmt)
         # timestamp_2 = datetime.strptime(row2[Timestamp], fmt)
         # time_delta = (timestamp_2 - timestamp_1)
         # total_seconds = time_delta.total_seconds()
         # minutes = total_seconds/60
-        df['AIS_G'] = df['T_Gap'] > AIS_Gap
-        return df
+        df_ret['AIS_G'] = df_ret['T_Gap'] > AIS_Gap
+        return df_ret
 
     # Source: https://stackoverflow.com/questions/37063038/how-to-compare-multiple-rows-from-same-column-in-dataframe
     # speed = df[column].diff(1).rolling(w_size).apply(lambda spd: True if ((spd / spd) * 100) > percent else False).fillna(0).astype(bool)
@@ -62,10 +63,11 @@ class AnalyzeDf():
         # average, we could do a percentage check for each value and then check
         # if there are unreasonable speed changes and then drop/ingore those
         df_av = pd.DataFrame()
+        df_ret = pd.DataFrame()
         for i in range(1, w_size):
             df_av['gr_pct{0}'.format(i)] = df[column].pct_change(periods=i)
-        df['gr_prct'] = df_av.sum(axis=1) / len(df.columns)
-        return df
+        df_ret['gr_prct'] = df_av.sum(axis=1) / len(df.columns)
+        return df_ret
 
     def perc_change_incr(self, df, column, l_perc, h_perc):
         """
@@ -79,8 +81,9 @@ class AnalyzeDf():
             h_perc (float): Upper bound value to use.
 
         """
-        df['h_incr'] = df[column].between(l_perc, h_perc)
-        return df
+        df_ret = pd.DataFrame()
+        df_ret['h_incr'] = df[column].between(l_perc, h_perc)
+        return df_ret
 
     def perc_change_decr(self, df, column, l_perc, h_perc):
         """
@@ -94,8 +97,9 @@ class AnalyzeDf():
             h_perc (float): Upper bound value to use.
 
         """
-        df['h_decr'] = df[column].between(-l_perc, -h_perc)
-        return df
+        df_ret = pd.DataFrame()
+        df_ret['h_decr'] = df[column].between(-l_perc, -h_perc)
+        return df_ret
 
     # Source: https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python
     def setup_polygon(self, list_coordinates):
