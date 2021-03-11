@@ -3,57 +3,126 @@
 # out_file: Specify the file in which the output should be stored.
 # remove_in_df: Specify if the extracted vessel type should be removed from the in-memory dataframe
 # unique_column: Specify the column from which the a ship can be uniquely identified.
+drop_columns:
+  - 'Type of position fixing device'
+  - 'Destination'
+  - 'ETA'
+  - 'Data source type'
+  - 'A'
+  - 'B'
+  - 'C'
+  - 'D'
 
 analyze:
   - elem: "Cargo"
     column: "Ship type"
-    out_file: "vessels/Cargo.out"
+    out_file: "vessels/Cargo2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Military"
     column: "Ship type"
-    out_file: "vessels/Military.out"
+    out_file: "vessels/Military2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Fishing"
     column: "Ship type"
-    out_file: "vessels/Fishing.out"
+    out_file: "vessels/Fishing2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Passenger"
     column: "Ship type"
-    out_file: "vessels/Passenger.out"
+    out_file: "vessels/Passenger2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Pleasure"
     column: "Ship type"
-    out_file: "vessels/Pleasure.out"
+    out_file: "vessels/Pleasure2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Other"
     column: "Ship type"
-    out_file: "vessels/Other.out"
+    out_file: "vessels/Other2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Sailing"
     column: "Ship type"
-    out_file: "vessels/Sailing.out"
+    out_file: "vessels/Sailing2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Tanker"
     column: "Ship type"
-    out_file: "vessels/Tanker.out"
+    out_file: "vessels/Tanker2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Reserved"
     column: "Ship type"
-    out_file: "vessels/Reserved.out"
+    out_file: "vessels/Reserved2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
   - elem: "Tug"
     column: "Ship type"
-    out_file: "vessels/Tug.out"
+    out_file: "vessels/Tug2.out"
     remove_in_df: True
     unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    w_size: 5
+    s_column: "SOG"
+    t_column: "# Timestamp"
 
 # Towing long/wide
