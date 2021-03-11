@@ -16,10 +16,24 @@ class PreProcess():
         Set the dict to a dataframe.
 
         Args:
+        ----
             file (str); Contains filename of the CSV file to read from.
 
         """
         df = pd.read_csv(file, index_col=None, header=0)
+        return df
+
+    def drop_col(self, df, l_columns):
+        """
+        Find rows that matche string @elem in column @column.
+
+        Args:
+        ----
+            l_columns (lst): List containing strings of columns to drop in df.
+            df (df): Pandas dataframe
+
+        """
+        df.drop(l_columns, axis=1, inplace=True)
         return df
 
     def extract_uniq_val(self, df, column):
@@ -27,6 +41,7 @@ class PreProcess():
         Find rows that matche string @elem in column @column.
 
         Args:
+        ----
             column (str): Contains name of the column to match the string.
             df (df): Pandas dataframe
 
@@ -39,6 +54,7 @@ class PreProcess():
         Find rows that matche string @elem in column @column.
 
         Args:
+        ----
             elem (str): String to match when searching rows.
             column (str): Contains name of the column to match the string.
             df (df): Pandas dataframe.
@@ -53,6 +69,7 @@ class PreProcess():
         Extract all rows based on value 'elem' in column 'column'.
 
         Args:
+        ----
            elem (str): String, that matches with a value in specified column.
            column (str): Contains name of the column that the value 'elem'
                          should be matched.
@@ -68,6 +85,7 @@ class PreProcess():
         Remove the rows from the main pandas dataframe.
 
         Args:
+        ----
           df (df): Pandas Dataframe
           elem (str): String used in rows that is matched for removal
           column (str): Contains the column in which 'elem' should
@@ -83,6 +101,7 @@ class PreProcess():
         Write Pandas dataframe to CSV file.
 
         Args:
+        ----
             df: Pandas Dataframe
             filename: Contains file name the dataframe should be written to.
 
