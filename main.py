@@ -5,6 +5,7 @@ import ruamel.yaml
 import pandas as pd
 import multiprocessing
 import numpy as np
+import geopandas as gpd
 from extract import PreProcess
 from command_line import parseOptions
 from pro_yml import yaml_extract
@@ -81,7 +82,7 @@ def extract_vessel_types(extract, df, df_ships):
     prepros.csv_out(df_ships, out_file)
 
 
-def analyze_vessels(extract, df, df_ships):
+def analyze_vessels(extract, df, df_ships, l_poly):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
@@ -108,7 +109,8 @@ def analyze_vessels(extract, df, df_ships):
                                                 'gr_prct',
                                                 l_win,
                                                 u_win)
-
+        polygon = analyze.setup_polygon(l_poly)
+        df['geometry'] = df.apply(lambda x: Point([x['Longtitude', x['Latitude']], axis=1)
         df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     prepros.csv_out(df_ships, out_file)
 
@@ -155,7 +157,7 @@ if __name__ == '__main__':
     if 'analyze' in instruct:
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=analyze_vessels,
-                                        args=(extract, df, df_ships,))
+                                        args=(extract, df, df_ships, l_poly,))
             p.start()
 
 
