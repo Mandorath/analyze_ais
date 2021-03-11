@@ -14,7 +14,7 @@ from datetime import datetime
 
 log = fun_logger.init_log()
 yml_tst = ruamel.yaml
-df_ships = pd.DataFrame()
+df_ships = []
 df_ship_type = pd.DataFrame()
 
 
@@ -55,7 +55,8 @@ def extract_vessel_types(df, df_ships, uni_val, unique_col):
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     print(df_ship_type)
     log.info("Adding vessel with MMSI {0} dataframe to vessel_type dataframe".format(uni_val))
-    df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
+    df_ships.append(df_ship_type)
+    # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
 def prep_vessel_types(extract, df, df_ships):
     """
@@ -86,7 +87,8 @@ def prep_vessel_types(extract, df, df_ships):
                                           unique_col
                                           ))
         p.start()
-    prepros.csv_out(df_ships, out_file)
+    df_tot = pd.concat(df_ships)
+    prepros.csv_out(df_tot, out_file)
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                       df_ships, l_poly, uni_val, unique_col):
@@ -105,8 +107,8 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             l_win,
                                             u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
-    df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
-    print(df_ships)
+    # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
+    df_ships.append(df_ship_type)
 
 
 
@@ -137,7 +139,8 @@ def prep_analysis(extract, df, df_ships, l_poly):
                                           unique_col
                                           ))
         p.start()
-    prepros.csv_out(df_ships, out_file)
+    df_tot = pd.concat(df_ships)
+    prepros.csv_out(df_tot, out_file)
 
 
 if __name__ == '__main__':
