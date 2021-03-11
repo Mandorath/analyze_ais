@@ -9,6 +9,7 @@ from extract import PreProcess
 from command_line import parseOptions
 from pro_yml import yaml_extract
 from f_analyze import AnalyzeDf
+from datetime import datetime
 # from search_ais_gaps import search_ais_gaps
 
 log = fun_logger.init_log()
@@ -160,17 +161,24 @@ if __name__ == '__main__':
         l_poly = instruct['polygon']['poly_file']
         print(l_poly)
     if 'extract' in instruct:
+        extr_class_Time = datetime.now()
         for extract in instruct['extract']:
             p = multiprocessing.Process(target=extract_classes,
                                         args=(extract, df,))
             processes.append(p)
             p.start()
+        total = datetime.now() - extr_class_Time
+        print("Total time extracting vessels is: {0}".format(total))
     if 'extract_vessel_types' in instruct:
+        extr_ves_Time = datetime.now()
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=extract_vessel_types,
                                         args=(extract, df, df_ships,))
             p.start()
+        total = datetime.now() - extr_ves_Time
+        print("Total time extracting vessels is: {0}".format(total))
     if 'analyze' in instruct:
+        analyzeTime = datetime.now()
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
@@ -178,6 +186,8 @@ if __name__ == '__main__':
                                               df_ships,
                                               l_poly,))
             p.start()
+        total = datetime.now() - analyzeTime
+        print("Total time analysis is: {0}".format(total))
 
 
             # prepros.csv_out(df_unique, out_file)
