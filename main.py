@@ -128,6 +128,7 @@ if __name__ == '__main__':
     processes = []
     if 'drop_columns' in instruct:
         l_columns = instruct['drop_columns']
+        print(l_columns)
         df = prepros.drop_col(df, l_columns)
     if 'extract' in instruct:
         for extract in instruct['extract']:
@@ -140,7 +141,7 @@ if __name__ == '__main__':
             p = multiprocessing.Process(target=extract_vessel_types,
                                         args=(extract, df, df_ships,))
             p.start()
-    if 'analyze' in instruct:
+    if 'analyzes' in instruct:
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=analyze_vessels,
                                         args=(extract, df, df_ships,))
