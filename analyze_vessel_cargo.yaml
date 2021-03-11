@@ -16,16 +16,21 @@ drop_columns:
 polygon:
   area-1:
     lat_points:
-      - 57.2991812
-        10.7049484
-      - 57.1201724
-        10.7559174
-      - 56.9798264
-        11.0608432
-      - 57.3371066
-        11.4042281
-      - 57.3044995
-        10.7092171
+      -
+        - 57.2991812
+        - 10.7049484
+      -
+        - 57.1201724
+        - 10.7559174
+      -
+        - 56.9798264
+        - 11.0608432
+      -
+        - 57.3371066
+        - 11.4042281
+      -
+        - 57.3044995
+        - 10.7092171
 
 
 analyze:
@@ -38,8 +43,8 @@ analyze:
     l_bound_win: 20
     u_bound_win: 40
     window_size: 5
-    speed_column: "SOG"
-    time_column: "# Timestamp"
+    speed_column: SOG
+    time_column: '# Timestamp'
 
 
 # Towing long/wide
