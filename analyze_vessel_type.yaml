@@ -5,7 +5,7 @@
 # unique_column: Specify the column from which the a ship can be uniquely identified.
 drop_columns:
   - 'Type of position fixing device'
-  - 'Destination'
+  -  'Destination'
   - 'ETA'
   - 'Data source type'
   - 'A'
@@ -22,9 +22,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Military"
     column: "Ship type"
     out_file: "vessels/Military2.out"
@@ -33,9 +33,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Fishing"
     column: "Ship type"
     out_file: "vessels/Fishing2.out"
@@ -44,9 +44,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Passenger"
     column: "Ship type"
     out_file: "vessels/Passenger2.out"
@@ -55,9 +55,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Pleasure"
     column: "Ship type"
     out_file: "vessels/Pleasure2.out"
@@ -66,9 +66,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Other"
     column: "Ship type"
     out_file: "vessels/Other2.out"
@@ -77,9 +77,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Sailing"
     column: "Ship type"
     out_file: "vessels/Sailing2.out"
@@ -88,9 +88,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Tanker"
     column: "Ship type"
     out_file: "vessels/Tanker2.out"
@@ -99,9 +99,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Reserved"
     column: "Ship type"
     out_file: "vessels/Reserved2.out"
@@ -110,9 +110,9 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
   - elem: "Tug"
     column: "Ship type"
     out_file: "vessels/Tug2.out"
@@ -121,8 +121,8 @@ analyze:
     ais_gap: 6
     l_bound_win: 20
     u_bound_win: 40
-    w_size: 5
-    s_column: "SOG"
-    t_column: "# Timestamp"
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
 
 # Towing long/wide
