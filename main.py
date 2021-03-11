@@ -17,7 +17,7 @@ df_ships = pd.DataFrame()
 df_ship_type = pd.DataFrame()
 
 
-def parallelize_dataframe(df, func, n_cores=14):
+def parallelize_dataframe(df, func, n_cores=2):
     df_split = np.array_split(df, n_cores)
 
     pool = multiprocessing.Pool(n_cores)
@@ -80,8 +80,28 @@ def extract_vessel_types(extract, df, df_ships):
         # prepros.csv_out(df, "remaining.out")
     prepros.csv_out(df_ships, out_file)
 
+def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
+                      df_ships, l_poly, uni_val, unique_col):
+    log.info("Extracting unique values.")
+    df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
+    log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
+    df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
+    log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
+    df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
+    df_ship_type = analyze.perc_change_incr(df_ship_type,
+                                            'gr_prct',
+                                            l_win,
+                                            u_win)
+    df_ship_type = analyze.perc_change_decr(df_ship_type,
+                                            'gr_prct',
+                                            l_win,
+                                            u_win)
+    geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
+    print(geo_df)
+    df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
-def analyze_vessels(extract, df, df_ships, l_poly):
+
+def prep_analysis(extract, df, df_ships, l_poly):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
@@ -94,23 +114,20 @@ def analyze_vessels(extract, df, df_ships, l_poly):
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
     for uni_val in l_unique:
-        log.info("Extracting unique values.")
-        df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
-        log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
-        df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
-        log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
-        df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
-        df_ship_type = analyze.perc_change_incr(df_ship_type,
-                                                'gr_prct',
-                                                l_win,
-                                                u_win)
-        df_ship_type = analyze.perc_change_decr(df_ship_type,
-                                                'gr_prct',
-                                                l_win,
-                                                u_win)
-        geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
-        print(geo_df)
-        df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
+        p = multiprocessing.Process(target=analysing_vessels,
+                                    args=(ais_gap,
+                                          l_win,
+                                          u_win,
+                                          w_size,
+                                          s_column,
+                                          t_column,
+                                          df,
+                                          df_ships,
+                                          l_poly,
+                                          uni_val,
+                                          unique_col
+                                          ))
+        p.start()
     prepros.csv_out(df_ships, out_file)
 
 
@@ -155,7 +172,7 @@ if __name__ == '__main__':
             p.start()
     if 'analyze' in instruct:
         for extract in instruct['analyze']:
-            p = multiprocessing.Process(target=analyze_vessels,
+            p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
                                               df,
                                               df_ships,
