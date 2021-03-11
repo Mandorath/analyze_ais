@@ -29,8 +29,9 @@ class AnalyzeDf():
         # Make the column a proper time_stamp instead of str/int
         AIS_Gap = time
         df_ret = pd.DataFrame()
-        df["# Timestamp"] = pd.to_datetime(df["# Timestamp"])
-        df_ret['T_Gap'] = df["# Timestamp"].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
+        df_t = pd.DataFrame()
+        df_t[column] = pd.to_datetime(df[column])
+        df_ret['T_Gap'] = df_t[column].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
         # timestamp_1 = datetime.strptime(row1[Timestamp], fmt)
         # timestamp_2 = datetime.strptime(row2[Timestamp], fmt)
         # time_delta = (timestamp_2 - timestamp_1)
