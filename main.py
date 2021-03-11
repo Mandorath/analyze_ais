@@ -106,7 +106,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
-    pring(df_ships)
+    print(df_ships)
 
 
 
