@@ -1,0 +1,30 @@
+# elem: Define the actual vessel type, for the data set.
+# column: Define the column from which the vessel type needs to be extracted.
+# out_file: Specify the file in which the output should be stored.
+# remove_in_df: Specify if the extracted vessel type should be removed from the in-memory dataframe
+# unique_column: Specify the column from which the a ship can be uniquely identified.
+drop_columns:
+  - 'Type of position fixing device'
+  -  'Destination'
+  - 'ETA'
+  - 'Data source type'
+  - 'A'
+  - 'B'
+  - 'C'
+  - 'D'
+
+analyze:
+  - elem: "Cargo"
+    column: "Ship type"
+    out_file: "vessels/Cargo2.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
+
+
+# Towing long/wide
