@@ -50,7 +50,7 @@ def extract_classes(extract, df):
         df = prepros.remove_rows(df, elem, column)
 
 
-def extract_vessel_types(df, df_ships, uni_val, unique_col):
+def extract_vessel_types(df, uni_val, unique_col):
     log.info("Extracting all rows matching MMSI {0}".format(uni_val))
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     print(df_ship_type)
@@ -58,7 +58,7 @@ def extract_vessel_types(df, df_ships, uni_val, unique_col):
     df_ships.append(df_ship_type)
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
-def prep_vessel_types(extract, df, df_ships):
+def prep_vessel_types(extract, df):
     """
     Extracts the vessel types specified in the yaml file.
 
@@ -82,7 +82,6 @@ def prep_vessel_types(extract, df, df_ships):
     for uni_val in l_unique:
         p = multiprocessing.Process(target=analysing_vessels,
                                     args=(df,
-                                          df_ships,
                                           uni_val,
                                           unique_col
                                           ))
@@ -91,7 +90,7 @@ def prep_vessel_types(extract, df, df_ships):
     prepros.csv_out(df_tot, out_file)
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
-                      df_ships, l_poly, uni_val, unique_col):
+                      l_poly, uni_val, unique_col):
     log.info("Extracting unique values.")
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
@@ -111,8 +110,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     df_ships.append(df_ship_type)
 
 
-
-def prep_analysis(extract, df, df_ships, l_poly):
+def prep_analysis(extract, df, l_poly):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
@@ -133,7 +131,6 @@ def prep_analysis(extract, df, df_ships, l_poly):
                                           s_column,
                                           t_column,
                                           df,
-                                          df_ships,
                                           l_poly,
                                           uni_val,
                                           unique_col
@@ -184,7 +181,7 @@ if __name__ == '__main__':
         extr_ves_Time = datetime.now()
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=prep_vessel_types,
-                                        args=(extract, df, df_ships,))
+                                        args=(extract, df,))
             p.start()
         total = datetime.now() - extr_ves_Time
         print("Total time extracting vessels is: {0}".format(total))
@@ -194,7 +191,6 @@ if __name__ == '__main__':
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
                                               df,
-                                              df_ships,
                                               l_poly,))
             p.start()
         total = datetime.now() - analyzeTime
