@@ -100,10 +100,17 @@ def analyze_vessels(extract, df, df_ships):
         df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
         log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
         df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
-        df_ship_type = analyze.perc_change_incr(df_ship_type, l_win, u_win)
-        df_ship_type = analyze.perc_change_decr(df_ship_type, l_win, u_win)
+        df_ship_type = analyze.perc_change_incr(df_ship_type,
+                                                'gr_prct',
+                                                l_win,
+                                                u_win)
+        df_ship_type = analyze.perc_change_decr(df_ship_type,
+                                                'gr_prct',
+                                                l_win,
+                                                u_win)
         df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     prepros.csv_out(df_ships, out_file)
+
 
 if __name__ == '__main__':
     """Primary function."""
