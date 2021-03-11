@@ -43,8 +43,8 @@ analyze:
     l_bound_win: 20
     u_bound_win: 40
     window_size: 5
-    speed_column: SOG
-    time_column: '# Timestamp'
+    speed_column: "SOG"
+    time_column: "# Timestamp"
 
 
 # Towing long/wide
