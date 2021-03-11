@@ -12,7 +12,7 @@ fmt = '%Y-%m-%d %H:%M:%S'
 
 class AnalyzeDf():
 
-    def search_ais_gaps(df, column, time):
+    def search_ais_gaps(self, df, column, time):
         """
         Search for (large) gaps in time.
 
@@ -40,7 +40,7 @@ class AnalyzeDf():
 
     # Source: https://stackoverflow.com/questions/37063038/how-to-compare-multiple-rows-from-same-column-in-dataframe
     # speed = df[column].diff(1).rolling(w_size).apply(lambda spd: True if ((spd / spd) * 100) > percent else False).fillna(0).astype(bool)
-    def grad_change(df, column, w_size):
+    def grad_change(self, df, column, w_size):
         """
         Calculate the gradual increase/decrease of each row.
 
@@ -67,7 +67,7 @@ class AnalyzeDf():
         df['gr_prct'] = df_av.sum(axis=1) / len(df.columns)
         return df
 
-    def perc_change_incr(df, column, l_perc, h_perc):
+    def perc_change_incr(self, df, column, l_perc, h_perc):
         """
         Check if a value falls between the defined lower and upper bound.
 
@@ -82,7 +82,7 @@ class AnalyzeDf():
         df['h_incr'] = df[column].between(l_perc, h_perc)
         return df
 
-    def perc_change_decr(df, column, l_perc, h_perc):
+    def perc_change_decr(self, df, column, l_perc, h_perc):
         """
         Check if a value falls between the defined lower and upper bound.
 
@@ -98,7 +98,7 @@ class AnalyzeDf():
         return df
 
     # Source: https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python
-    def setup_polygon(list_coordinates):
+    def setup_polygon(self, list_coordinates):
         """
         Create a polygon based on the provided coordinates.
 
@@ -109,7 +109,7 @@ class AnalyzeDf():
         poly = Polygon(list_coordinates)
         return poly
 
-    def check_in_polygon(point, polygon):
+    def check_in_polygon(self, point, polygon):
         """
         Check if a set of lat/long coordinates is within the provided polygon.
 
