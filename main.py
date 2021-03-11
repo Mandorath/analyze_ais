@@ -56,7 +56,7 @@ def extract_vessel_types(extract, df, df_ships):
     Args:
        extract (dict): Yaml file, that contains instructions.
        df (df): Dataframe containing the data to extract parts of.
-       df_ships: Dataframe that the extracted data will be put in.
+       df_ships (df): Dataframe that the extracted data will be put in.
 
     """
     print(yml_tst.safe_dump(extract))
@@ -94,8 +94,11 @@ def analyze_vessels(extract, df, df_ships):
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
     for uni_val in l_unique:
+        log.info("Extracting unique values.")
         df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
+        log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
         df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
+        log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
         df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
         df_ship_type = analyze.perc_change_incr(df_ship_type, l_win, u_win)
         df_ship_type = analyze.perc_change_decr(df_ship_type, l_win, u_win)
