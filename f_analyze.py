@@ -84,7 +84,7 @@ class AnalyzeDf():
         """
         df_ret = df
         df_ret['h_incr'] = df[column].between(l_perc, h_perc)
-        df.join(df_ret['h_incr'])
+        # df.join(df_ret['h_incr'])
         return df_ret
 
     def perc_change_decr(self, df, column, l_perc, h_perc):
