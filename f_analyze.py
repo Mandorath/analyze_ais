@@ -131,7 +131,7 @@ class AnalyzeDf():
               df, geometry=gpd.points_from_xy(
                                      df.Longitude,
                                      df.Latitude))
-        data_poly = gpd.read_file("Country_community_file.geojson")
+        data_poly = gpd.read_file(polygon)
         joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
         return joined_gdf
 
