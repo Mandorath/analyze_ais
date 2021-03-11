@@ -108,7 +108,7 @@ def analyze_vessels(extract, df, df_ships, l_poly):
                                                 'gr_prct',
                                                 l_win,
                                                 u_win)
-        geo_df = analyze.check_in_polygon(l_poly)
+        geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
 
         df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     prepros.csv_out(df_ships, out_file)
