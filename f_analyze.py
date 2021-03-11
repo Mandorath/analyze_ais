@@ -28,7 +28,7 @@ class AnalyzeDf():
         """
         # Make the column a proper time_stamp instead of str/int
         AIS_Gap = time
-        df_ret = pd.DataFrame()
+        df_ret = df
         df_t = pd.DataFrame()
         df_t[column] = pd.to_datetime(df[column])
         df_ret['T_Gap'] = df_t[column].diff().apply(lambda x: x/np.timedelta64(1, 'm')).fillna(0).astype('int64')
@@ -64,7 +64,7 @@ class AnalyzeDf():
         # average, we could do a percentage check for each value and then check
         # if there are unreasonable speed changes and then drop/ingore those
         df_av = pd.DataFrame()
-        df_ret = pd.DataFrame()
+        df_ret = df
         for i in range(1, w_size):
             df_av['gr_pct{0}'.format(i)] = df[column].pct_change(periods=i)
         df_ret['gr_prct'] = df_av.sum(axis=1) / len(df.columns)
@@ -82,7 +82,7 @@ class AnalyzeDf():
             h_perc (float): Upper bound value to use.
 
         """
-        df_ret = pd.DataFrame()
+        df_ret = df
         df_ret['h_incr'] = df[column].between(l_perc, h_perc)
         df.join(df_ret['h_incr'])
         return df_ret
@@ -99,7 +99,7 @@ class AnalyzeDf():
             h_perc (float): Upper bound value to use.
 
         """
-        df_ret = pd.DataFrame()
+        df_ret = df
         df_ret['h_decr'] = df[column].between(-l_perc, -h_perc)
         return df_ret
 
