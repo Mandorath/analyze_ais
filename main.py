@@ -90,8 +90,9 @@ def prep_vessel_types(extract, df):
     df_tot = pd.concat(df_ships)
     prepros.csv_out(df_tot, out_file)
 
+
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
-                      l_poly, uni_val, unique_col, queue):
+                      l_poly, uni_val, unique_col):
     log.info("Extracting unique values.")
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
