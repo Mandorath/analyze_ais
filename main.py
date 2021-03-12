@@ -92,7 +92,7 @@ def prep_vessel_types(extract, df):
 
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
-                      l_poly, uni_val, unique_col):
+                      l_poly, uni_val, unique_col, return_dict):
     log.info("Extracting unique values.")
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
@@ -109,7 +109,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
-    return_dict[procnum] = df_ship_type
+    return_dict[uni_val] = df_ship_type
     # df_ships.append(df_ship_type)
 
 
@@ -130,7 +130,7 @@ def prep_analysis(extract, df, l_poly):
     jobs = []
     for uni_val in l_unique:
         args = (ais_gap, l_win, u_win, w_size, s_column, t_column, df, l_poly,
-                uni_val, unique_col)
+                uni_val, unique_col, return_dict)
         proc = multiprocessing.Process(target=analysing_vessels,
                                        args=args)
         jobs.append(proc)
