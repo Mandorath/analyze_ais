@@ -126,19 +126,19 @@ def prep_analysis(extract, df, l_poly):
     l_unique = prepros.extract_uniq_val(df, unique_col)
     queue = multiprocessing.Queue()
     for uni_val in l_unique:
-        proc = multiprocessing.Process(target=analysing_vessels,
-                                       args=(ais_gap,
-                                             l_win,
-                                             u_win,
-                                             w_size,
-                                             s_column,
-                                             t_column,
-                                             df,
-                                             l_poly,
-                                             uni_val,
-                                             unique_col,
-                                             queue
-                                             ))
+        proc = [multiprocessing.Process(target=analysing_vessels,
+                                        args=(ais_gap,
+                                              l_win,
+                                              u_win,
+                                              w_size,
+                                              s_column,
+                                              t_column,
+                                              df,
+                                              l_poly,
+                                              uni_val,
+                                              unique_col,
+                                              queue
+                                              )) for uni_val in l_unique]
 
     for p in proc:
         p.start()
