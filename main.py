@@ -136,8 +136,8 @@ def prep_analysis(extract, df, l_poly):
         r = pool.apply_async(analysing_vessels, args, callback=return_data)
         results.append(r)
         # r = parallelize_dataframe(analysing_vessels, args)
-    for r in results:
-        r.wait()
+    pool.close()
+    pool.join()
     df_tot = pd.concat(df_ships)
     prepros.csv_out(df_tot, out_file)
 
