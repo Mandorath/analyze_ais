@@ -137,7 +137,7 @@ def prep_analysis(extract, df, l_poly):
         proc.start()
     for p in jobs:
         p.join()
-        p.close()
+        p.terminate()
     print(return_dict.values())
     # df_tot = pd.concat(res)
     # prepros.csv_out(df_tot, out_file)
