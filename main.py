@@ -18,15 +18,11 @@ df_ships = []
 df_ship_type = pd.DataFrame()
 
 
-def return_data(data):
-    df_ships.extend(data)
-
-def parallelize_dataframe(func, args, n_cores=16):
-    # df_split = np.array_split(df, n_cores)
+def parallelize_dataframe(df, func, n_cores=16):
+    df_split = np.array_split(df, n_cores)
 
     pool = multiprocessing.Pool(n_cores)
-    df = pool.apply_async(func, args, callback=return_data)
-    # df = pd.concat(pool.map(func, df_split))
+    df = pd.concat(pool.map(func, df_split))
 
     pool.close()
     pool.join()
@@ -95,7 +91,7 @@ def prep_vessel_types(extract, df):
     prepros.csv_out(df_tot, out_file)
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
-                      l_poly, uni_val, unique_col):
+                      l_poly, uni_val, unique_col, queue):
     log.info("Extracting unique values.")
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
@@ -112,7 +108,8 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
-    df_ships.append(df_ship_type)
+    queue.put(df_ship_type)
+    # df_ships.append(df_ship_type)
 
 
 def prep_analysis(extract, df, l_poly):
@@ -127,18 +124,29 @@ def prep_analysis(extract, df, l_poly):
     t_column = extract['time_column']
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
-    results = []
-    n_cores = 30
-    pool = multiprocessing.Pool(n_cores)
+    queue = multiprocessing.Queue()
     for uni_val in l_unique:
-        args = (ais_gap, l_win, u_win, w_size, s_column, t_column, df, l_poly,
-                uni_val, unique_col)
-        r = pool.apply_async(analysing_vessels, args, callback=return_data)
-        results.append(r)
-        # r = parallelize_dataframe(analysing_vessels, args)
-    pool.close()
-    pool.join()
-    df_tot = pd.concat(df_ships)
+        proc = multiprocessing.Process(target=analysing_vessels,
+                                       args=(ais_gap,
+                                             l_win,
+                                             u_win,
+                                             w_size,
+                                             s_column,
+                                             t_column,
+                                             df,
+                                             l_poly,
+                                             uni_val,
+                                             unique_col,
+                                             queue
+                                             ))
+
+    for p in proc:
+        p.start()
+    res = []
+    for p in proc:
+        p.join()
+        res.append(queue.get())
+    df_tot = pd.concat(res)
     prepros.csv_out(df_tot, out_file)
 
 
