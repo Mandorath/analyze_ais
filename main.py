@@ -128,7 +128,7 @@ def prep_analysis(extract, df, l_poly):
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
     results = []
-    n_cores = 6
+    n_cores = 30
     pool = multiprocessing.Pool(n_cores)
     for uni_val in l_unique:
         args = (ais_gap, l_win, u_win, w_size, s_column, t_column, df, l_poly,
