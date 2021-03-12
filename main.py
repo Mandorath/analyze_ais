@@ -108,7 +108,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
-    queue.put(df_ship_type)
+    return_dict[procnum] = df_ship_type
     # df_ships.append(df_ship_type)
 
 
@@ -124,30 +124,21 @@ def prep_analysis(extract, df, l_poly):
     t_column = extract['time_column']
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
-    queue = multiprocessing.Queue()
+    manager = multiprocessing.Manager()
+    return_dict = manager.dict()
+    jobs = []
     for uni_val in l_unique:
-        proc = [multiprocessing.Process(target=analysing_vessels,
-                                        args=(ais_gap,
-                                              l_win,
-                                              u_win,
-                                              w_size,
-                                              s_column,
-                                              t_column,
-                                              df,
-                                              l_poly,
-                                              uni_val,
-                                              unique_col,
-                                              queue
-                                              )) for uni_val in l_unique]
-
-    for p in proc:
-        p.start()
-    res = []
-    for p in proc:
+        args = (ais_gap, l_win, u_win, w_size, s_column, t_column, df, l_poly,
+                uni_val, unique_col)
+        proc = multiprocessing.Process(target=analysing_vessels,
+                                       args=args)
+        jobs.append(proc)
+        proc.start()
+    for p in jobs:
         p.join()
-        res.append(queue.get())
-    df_tot = pd.concat(res)
-    prepros.csv_out(df_tot, out_file)
+    print(return_dict.values())
+    # df_tot = pd.concat(res)
+    # prepros.csv_out(df_tot, out_file)
 
 
 if __name__ == '__main__':
