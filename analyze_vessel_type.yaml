@@ -16,7 +16,7 @@ drop_columns:
 analyze:
   - elem: "Cargo"
     column: "Ship type"
-    out_file: "vessels/Cargo2.out"
+    out_file: "Cargo2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -27,7 +27,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Military"
     column: "Ship type"
-    out_file: "vessels/Military2.out"
+    out_file: "Military2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -38,7 +38,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Fishing"
     column: "Ship type"
-    out_file: "vessels/Fishing2.out"
+    out_file: "Fishing2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -49,7 +49,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Passenger"
     column: "Ship type"
-    out_file: "vessels/Passenger2.out"
+    out_file: "Passenger2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -60,7 +60,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Pleasure"
     column: "Ship type"
-    out_file: "vessels/Pleasure2.out"
+    out_file: "Pleasure2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -71,7 +71,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Other"
     column: "Ship type"
-    out_file: "vessels/Other2.out"
+    out_file: "Other2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -82,7 +82,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Sailing"
     column: "Ship type"
-    out_file: "vessels/Sailing2.out"
+    out_file: "Sailing2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -93,7 +93,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Tanker"
     column: "Ship type"
-    out_file: "vessels/Tanker2.out"
+    out_file: "Tanker2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -104,7 +104,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Reserved"
     column: "Ship type"
-    out_file: "vessels/Reserved2.out"
+    out_file: "Reserved2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -115,7 +115,7 @@ analyze:
     time_column: "# Timestamp"
   - elem: "Tug"
     column: "Ship type"
-    out_file: "vessels/Tug2.out"
+    out_file: "Tug2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
