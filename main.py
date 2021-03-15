@@ -87,14 +87,13 @@ def prep_vessel_types(extract, df, out_dir):
     df_base = prepros.extract_rows_type(df, elem, column)
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
-    jobs = []
+    df_ships = []
     for uni_val in l_unique:
-        p = multiprocessing.Process(target=analysing_vessels,
-                                    args=(df,
-                                          uni_val,
-                                          unique_col
-                                          ))
-        p.start()
+        df_ship_type = analysing_vessels(df,
+                                         uni_val,
+                                         unique_col
+                                         )
+        df_ships.append(df_ship_type)
     df_tot = pd.concat(df_ships)
     out_loc = "{0}/{1}".format(out_dir, out_file)
     prepros.csv_out(df_tot, out_loc)
@@ -157,7 +156,7 @@ def prep_analysis(extract, df, l_poly, out_dir):
     # pool.join()
     df_tot = pd.concat(results)
     # l_columns = ['Unnamed: 0, Unnamed: 0.1']
-    #df = prepros.drop_col(df, l_columns)
+    # df = prepros.drop_col(df, l_columns)
     # df_t_g = pd.concat(geo_results)
     # df_m = pd.concat(merge_results)
     # out_file2 = "geo_out"
