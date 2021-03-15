@@ -20,6 +20,13 @@ group2 = cargo['MMSI'].unique()
 percentage_zone= len(group1)/len(group2)*100
 print("True:", percentage_zone,"%")
 
+cargostats = {'Anomaly': ['Gap','Speed','Zone'],
+        'Percentage': [percent_gap,percent_sc,percentage_zone]
+        }
+
+df = pd.DataFrame(cargostats, columns = ['Anomaly', 'Percentage'])
+df.to_csv('cargostats.csv')
+
 '''
 fishing
 '''
@@ -40,6 +47,12 @@ group2 = fish['MMSI'].unique()
 percentage_zone= len(group1)/len(group2)*100
 print("True:", percentage_zone,"%")
 
+fishstats = {'Anomaly': ['Gap','Speed','Zone'],
+        'Percentage': [percent_gap,percent_sc,percentage_zone]
+        }
+
+df = pd.DataFrame(fishstats, columns = ['Anomaly', 'Percentage'])
+df.to_csv('fishstats.csv')
 '''
 Tank
 '''
@@ -60,6 +73,12 @@ group2 = tank['MMSI'].unique()
 percentage_zone= len(group1)/len(group2)*100
 print("True:", percentage_zone,"%")
 
+tankstats = {'Anomaly': ['Gap','Speed','Zone'],
+        'Percentage': [percent_gap,percent_sc,percentage_zone]
+        }
+
+df = pd.DataFrame(tankstats, columns = ['Anomaly', 'Percentage'])
+df.to_csv('tankstats.csv')
 '''
 Passenger
 '''
@@ -79,3 +98,10 @@ group1 = dfp.groupby('MMSI')['Zn_entry'].unique()
 group2 = passenger['MMSI'].unique()
 percentage_zone= len(group1)/len(group2)*100
 print("True:", percentage_zone,"%")
+
+passstats = {'Anomaly': ['Gap','Speed','Zone'],
+        'Percentage': [percent_gap,percent_sc,percentage_zone]
+        }
+
+df = pd.DataFrame(passstats, columns = ['Anomaly', 'Percentage'])
+df.to_csv('passstats.csv')
