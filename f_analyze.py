@@ -5,7 +5,9 @@ from extract import PreProcess
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 import geopandas as gpd
+import fun_logger
 
+log = fun_logger.init_log()
 prepros = PreProcess()
 
 
@@ -138,15 +140,21 @@ class AnalyzeDf():
         data_poly = gpd.read_file(polygon)
         within = df[gdf.geometry.within(data_poly)]
         outside = df[~gdf.geometry.within(data_poly)]
-        print("inside")
-        print(within)
-        print("outside")
-        print(outside)
-        print("outside2")
-        outside_chicago = df[gdf.geometry.disjoint(data_poly)]
-        print(outside_chicago)
+        if not within.empty and not outside.empty:
+            within['Zn_entry'] = True
+            outside['Zn_entry'] = False
+            joined_gdf = pd.concat([within, outside])
+        elif within.empty and not outside.empty:
+            outside['Zn_entry'] = False
+            joined_gdf = outside
+        elif not within.empty and outside.empty:
+            within['Zn_entry'] = True
+            joined_gdf = within
+        else:
+            log.error("Both gdfs are empty which should not happen!")
+        print(joined_gdf)
         # joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
-        # return joined_gdf
+        return joined_gdf
 
 
 #  def  search_mmsi(df, elem, uniq):

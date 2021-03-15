@@ -117,22 +117,10 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     #                                        u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     g_df = pd.DataFrame(geo_df)
-    merge_df = pd.DataFrame()
-    merge_df2 = pd.DataFrame()
-    if g_df.empty:
-        log.info("No matching plots for {0} in the polygon!".format(uni_val))
-    else:
-        merge_df = pd.merge(df_ship_type, g_df, on=[t_column, unique_col],
-                            how='outer')
-        merge_df['Zn_entry'] = False
-        merge_df2 = pd.merge(df_ship_type, g_df, on=[t_column, unique_col],
-                             how='inner')
-        merge_df2['Zn_entry'] = True
-        pd.join(merge_df, merge_df2)
 
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     # df_ships.append(df_ship_type)
-    return df_ship_type, g_df, merge_df
+    return g_df
 
 
 def prep_analysis(extract, df, l_poly, out_dir):
@@ -153,27 +141,27 @@ def prep_analysis(extract, df, l_poly, out_dir):
     # n_cores = 30
     # pool = multiprocessing.Pool(n_cores)
     for uni_val in l_unique:
-        df_shp, g_df, merge_df = analysing_vessels(ais_gap, l_win, u_win, w_size,
-                                                   s_column, t_column, df, l_poly,
-                                                   uni_val, unique_col)
+        df_shp = analysing_vessels(ais_gap, l_win, u_win, w_size,
+                                   s_column, t_column, df, l_poly,
+                                   uni_val, unique_col)
         # r = pool.apply_async(analysing_vessels, args, callback=return_data)
         results.append(df_shp)
-        geo_results.append(g_df)
-        merge_results.append(merge_df)
+        # geo_results.append(g_df)
+        # merge_results.append(merge_df)
         # r = parallelize_dataframe(analysing_vessels, args)
     # pool.close()
     # pool.join()
     df_tot = pd.concat(results)
-    df_t_g = pd.concat(geo_results)
-    df_m = pd.concat(merge_results)
-    out_file2 = "geo_out"
-    out_file3 = "merge_out"
+    # df_t_g = pd.concat(geo_results)
+    # df_m = pd.concat(merge_results)
+    # out_file2 = "geo_out"
+    # out_file3 = "merge_out"
     out_loc = "{0}/{1}".format(out_dir, out_file)
-    out_loc2 = "{0}/{1}".format(out_dir, out_file2)
-    out_loc3 = "{0}/{1}".format(out_dir, out_file3)
+    # out_loc2 = "{0}/{1}".format(out_dir, out_file2)
+    # out_loc3 = "{0}/{1}".format(out_dir, out_file3)
     prepros.csv_out(df_tot, out_loc)
     # prepros.csv_out(df_t_g, out_loc2)
-    prepros.csv_out(df_m, out_loc3)
+    # prepros.csv_out(df_m, out_loc3)
 
 def setup_dir(path):
     try:
