@@ -134,6 +134,9 @@ def prep_analysis(extract, df, l_poly, out_dir):
     w_size = extract['window_size']
     s_column = extract['speed_column']
     t_column = extract['time_column']
+    in_file = extract['in_file']
+    f_loc = "{0}/{1}".format(out_dir, in_file)
+    df = prepros.csv_to_df(f_loc)
     log.info("Extracting unique values from the column {0}".format(unique_col))
     l_unique = prepros.extract_uniq_val(df, unique_col)
     results = []
@@ -195,18 +198,19 @@ if __name__ == '__main__':
     instruct = yml.read_file(yml_file)
     print(yml_tst.safe_dump(instruct))
     # load CSV file
-    df = prepros.csv_to_df(csv_file)
+
     # For all in extract block extract data.
     processes = []
-    if 'drop_columns' in instruct:
-        l_columns = instruct['drop_columns']
-        print(l_columns)
-        df = prepros.drop_col(df, l_columns)
-    if 'drop_columns' in instruct:
-        l_poly = instruct['polygon']['poly_file']
-        print(l_poly)
     if 'extract' in instruct:
         extr_class_Time = datetime.now()
+        df = prepros.csv_to_df(csv_file)
+        if 'drop_columns' in instruct:
+            l_columns = instruct['drop_columns']
+            print(l_columns)
+            df = prepros.drop_col(df, l_columns)
+        if 'drop_columns' in instruct:
+            l_poly = instruct['polygon']['poly_file']
+            print(l_poly)
         for extract in instruct['extract']:
             p = multiprocessing.Process(target=extract_classes,
                                         args=(extract, df, out_dir,))
@@ -216,6 +220,14 @@ if __name__ == '__main__':
         print("Total time extracting vessels is: {0}".format(total))
     if 'extract_vessel_types' in instruct:
         extr_ves_Time = datetime.now()
+        df = prepros.csv_to_df(csv_file)
+        if 'drop_columns' in instruct:
+            l_columns = instruct['drop_columns']
+            print(l_columns)
+            df = prepros.drop_col(df, l_columns)
+        if 'drop_columns' in instruct:
+            l_poly = instruct['polygon']['poly_file']
+            print(l_poly)
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=prep_vessel_types,
                                         args=(extract, df, out_dir,))
@@ -227,7 +239,6 @@ if __name__ == '__main__':
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
-                                              df,
                                               l_poly,
                                               out_dir,
                                               ))
