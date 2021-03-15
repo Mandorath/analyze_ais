@@ -102,7 +102,8 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                       l_poly, uni_val, unique_col):
     log.info("Extracting unique values.")
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
-    log.info("Searching for gaps in column {0}, based on {1}".format(t_column, ais_gap))
+    log.info("Searching for gaps in column {0}, based on {1}".format(t_column,
+                                                                     ais_gap))
     df_ship_type = analyze.search_ais_gaps(df_ship_type, t_column, ais_gap)
     log.info("Calculating gradual change using column {0} and row size {1}".format(s_column, w_size))
     df_ship_type = analyze.grad_change(df_ship_type, s_column, w_size)
@@ -118,7 +119,9 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     g_df = pd.DataFrame(geo_df)
     print(geo_df)
     print(g_df)
-    if not g_df.empty():
+    if g_df.empty():
+        log.info("No matching plots for {0} in the polygon!".format(uni_val))
+    else:
         g_df['Zn_entry'] = True
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     # df_ships.append(df_ship_type)
