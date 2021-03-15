@@ -118,6 +118,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     g_df = pd.DataFrame(geo_df)
     merge_df = pd.DataFrame()
+    merge_df2 = pd.DataFrame()
     if g_df.empty:
         log.info("No matching plots for {0} in the polygon!".format(uni_val))
     else:
