@@ -127,7 +127,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
         merge_df2 = pd.merge(df_ship_type, g_df, on=[t_column, unique_col],
                              how='inner')
         merge_df2['Zn_entry'] = True
-        pd.concat(merge_df, merge_df2)
+        pd.merge(merge_df, merge_df2)
 
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     # df_ships.append(df_ship_type)
