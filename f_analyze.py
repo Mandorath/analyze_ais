@@ -84,7 +84,8 @@ class AnalyzeDf():
 
         """
         df_ret = df
-        df[column] = df_ret[column].abs()
+        df[column] = df[column].abs()
+        df[column] = pd.to_numeric(df[column], downcast="float")
         df_ret['flag_spd_chng'] = df[column].between(l_perc, h_perc,
                                                      inclusive=True)
         # df.join(df_ret['h_incr'])
@@ -135,8 +136,14 @@ class AnalyzeDf():
                                      df.Longitude,
                                      df.Latitude))
         data_poly = gpd.read_file(polygon)
-        joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
-        return joined_gdf
+        within = df[gdf.geometry.within(data_poly)]
+        outside = df[~gdf.geometry.within(data_poly)]
+        print("inside")
+        print(within)
+        print("outside")
+        print(outside)
+        # joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
+        # return joined_gdf
 
 
 #  def  search_mmsi(df, elem, uniq):
