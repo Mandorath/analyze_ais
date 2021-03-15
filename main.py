@@ -123,7 +123,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     else:
         g_df['Zn_entry'] = True
         merge_df = pd.merge(df_ship_type, g_df, left_on=[t_column, unique_col],
-                            right_on=[t_column, unique_col])
+                            right_on=[t_column, unique_col], how='left')
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     # df_ships.append(df_ship_type)
     return df_ship_type, g_df, merge_df
@@ -165,8 +165,8 @@ def prep_analysis(extract, df, l_poly, out_dir):
     out_loc = "{0}/{1}".format(out_dir, out_file)
     out_loc2 = "{0}/{1}".format(out_dir, out_file2)
     out_loc3 = "{0}/{1}".format(out_dir, out_file3)
-    prepros.csv_out(df_tot, out_loc)
-    prepros.csv_out(df_t_g, out_loc2)
+    # prepros.csv_out(df_tot, out_loc)
+    # prepros.csv_out(df_t_g, out_loc2)
     prepros.csv_out(df_m, out_loc3)
 
 def setup_dir(path):
