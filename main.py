@@ -152,8 +152,8 @@ def prep_analysis(extract, df, l_poly, out_dir):
     # pool.close()
     # pool.join()
     df_tot = pd.concat(results)
-    l_columns = ['Unnamed: 0, Unnamed: 0.1']
-    df = prepros.drop_col(df, l_columns)
+    # l_columns = ['Unnamed: 0, Unnamed: 0.1']
+    #df = prepros.drop_col(df, l_columns)
     # df_t_g = pd.concat(geo_results)
     # df_m = pd.concat(merge_results)
     # out_file2 = "geo_out"
