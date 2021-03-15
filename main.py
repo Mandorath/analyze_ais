@@ -153,6 +153,7 @@ def prep_analysis(extract, df, l_poly, out_dir):
         # r = pool.apply_async(analysing_vessels, args, callback=return_data)
         results.append(df_shp)
         geo_results.append(g_df)
+        merge_results.append(merge_df)
         # r = parallelize_dataframe(analysing_vessels, args)
     # pool.close()
     # pool.join()
