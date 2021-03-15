@@ -67,7 +67,7 @@ def extract_vessel_types(df, uni_val, unique_col):
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
 
-def prep_vessel_types(extract, df):
+def prep_vessel_types(extract, df, out_dir):
     """
     Extracts the vessel types specified in the yaml file.
 
@@ -96,7 +96,8 @@ def prep_vessel_types(extract, df):
                                           ))
         p.start()
     df_tot = pd.concat(df_ships)
-    prepros.csv_out(df_tot, out_file)
+    out_loc = "{0}/{1}".format(out_dir, out_file)
+    prepros.csv_out(df_tot, out_loc)
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                       l_poly, uni_val, unique_col):
