@@ -119,7 +119,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     g_df = pd.DataFrame(geo_df)
     print(geo_df)
     print(g_df)
-    g_emp = g_df.empty()
+    g_emp = g_df.empty
     print(g_emp)
     if g_emp:
         log.info("No matching plots for {0} in the polygon!".format(uni_val))
