@@ -89,10 +89,10 @@ def prep_vessel_types(extract, df, out_dir):
     l_unique = prepros.extract_uniq_val(df_base, unique_col)
     df_ships = []
     for uni_val in l_unique:
-        df_ship_type = analysing_vessels(df,
-                                         uni_val,
-                                         unique_col
-                                         )
+        df_ship_type = extract_vessel_types(df,
+                                            uni_val,
+                                            unique_col
+                                            )
         df_ships.append(df_ship_type)
     df_tot = pd.concat(df_ships)
     out_loc = "{0}/{1}".format(out_dir, out_file)
