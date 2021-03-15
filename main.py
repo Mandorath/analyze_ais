@@ -124,7 +124,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     return g_df
 
 
-def prep_analysis(extract, df, l_poly, out_dir):
+def prep_analysis(extract, l_poly, out_dir):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
