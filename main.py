@@ -121,9 +121,14 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     if g_df.empty:
         log.info("No matching plots for {0} in the polygon!".format(uni_val))
     else:
-        g_df['Zn_entry'] = True
-        merge_df = pd.merge(df_ship_type, g_df, left_on=[t_column, unique_col],
-                            right_on=[t_column, unique_col], how='left')
+        merge_df = pd.merge(df_ship_type, g_df, on=[t_column, unique_col],
+                            how='outer')
+        merge_df['Zn_entry'] = False
+        merge_df2 = pd.merge(df_ship_type, g_df, on=[t_column, unique_col],
+                             how='inner')
+        merge_df2['Zn_entry'] = True
+        pd.concat(merge_df, merge_df2)
+
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
     # df_ships.append(df_ship_type)
     return df_ship_type, g_df, merge_df
