@@ -144,15 +144,18 @@ class AnalyzeDf():
             within['Zn_entry'] = True
             outside['Zn_entry'] = False
             joined_gdf = pd.concat([within, outside])
+            print(joined_gdf)
         elif within.empty and not outside.empty:
             outside['Zn_entry'] = False
             joined_gdf = outside
+            print(joined_gdf)
         elif not within.empty and outside.empty:
             within['Zn_entry'] = True
             joined_gdf = within
+            print(joined_gdf)
         else:
             log.error("Both gdfs are empty which should not happen!")
-        print(joined_gdf)
+
         # joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
         return joined_gdf
 
