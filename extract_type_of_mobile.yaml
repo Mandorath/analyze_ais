@@ -1,3 +1,13 @@
+drop_columns:
+  - 'Type of position fixing device'
+  -  'Destination'
+  - 'ETA'
+  - 'Data source type'
+  - 'A'
+  - 'B'
+  - 'C'
+  - 'D'
+
 extract:
   - elem: "Base Station"
     column: "Type of mobile"
