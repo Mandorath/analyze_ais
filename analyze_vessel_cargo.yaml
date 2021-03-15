@@ -39,6 +39,7 @@ analyze:
     u_bound_win: 0.4
     window_size: 5
     speed_column: "SOG"
+    time_column: "# Timestamp"
     in_file: 'Fishing.out'
   - elem: "Passenger"
     column: "Ship type"
