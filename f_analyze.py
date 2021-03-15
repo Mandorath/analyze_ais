@@ -86,10 +86,10 @@ class AnalyzeDf():
 
         """
         df_ret = df
-        df[column] = df[column].abs()
-        df[column] = pd.to_numeric(df[column], downcast="float")
-        df_ret['flag_spd_chng'] = df[column].between(l_perc, h_perc,
-                                                     inclusive=True)
+        df['abs'] = df[column].abs()
+        # df[column] = pd.to_numeric(df[column], downcast="float")
+        df_ret['flag_spd_chng'] = df['abs'].between(l_perc, h_perc,
+                                                    inclusive=True)
         # df.join(df_ret['h_incr'])
         return df_ret
 
