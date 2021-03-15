@@ -19,7 +19,7 @@ polygon:
 analyze:
   - elem: "Cargo"
     column: "Ship type"
-    out_file: "vessels/Cargo2.out"
+    out_file: "Cargo2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
