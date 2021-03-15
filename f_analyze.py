@@ -142,6 +142,9 @@ class AnalyzeDf():
         print(within)
         print("outside")
         print(outside)
+        print("outside2")
+        outside_chicago = df[gdf.geometry.disjoint(data_poly)]
+        print(outside_chicago)
         # joined_gdf = gpd.sjoin(gdf, data_poly, op='within')
         # return joined_gdf
 
