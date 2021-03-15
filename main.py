@@ -2,6 +2,7 @@
 """Main script."""
 import fun_logger
 import ruamel.yaml
+import os
 import pandas as pd
 import multiprocessing
 import numpy as np
@@ -10,6 +11,7 @@ from command_line import parseOptions
 from pro_yml import yaml_extract
 from f_analyze import AnalyzeDf
 from datetime import datetime
+
 # from search_ais_gaps import search_ais_gaps
 
 log = fun_logger.init_log()
@@ -34,11 +36,12 @@ def parallelize_dataframe(func, args, n_cores=16):
     return df
 
 
-def extract_classes(extract, df):
+def extract_classes(extract, df, out_dir):
     """
     Extracts the classes specified in the yaml file.
 
     Args:
+    ----
        extract (dict): Yaml file, that contains instructions.
        df (df): Dataframe containing the data to extract parts of.
 
@@ -49,7 +52,8 @@ def extract_classes(extract, df):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     df_base = prepros.extract_rows_type(df, elem, column)
-    prepros.csv_out(df_base, out_file)
+    out_loc = "{0}/{1}".format(out_dir, out_file)
+    prepros.csv_out(df_base, out_loc)
     if rem_df:
         df = prepros.remove_rows(df, elem, column)
 
@@ -131,15 +135,25 @@ def prep_analysis(extract, df, l_poly):
     n_cores = 30
     pool = multiprocessing.Pool(n_cores)
     for uni_val in l_unique:
-        args = (ais_gap, l_win, u_win, w_size, s_column, t_column, df, l_poly,
-                uni_val, unique_col)
-        r = pool.apply_async(analysing_vessels, args, callback=return_data)
-        results.append(r)
+        results = analysing_vessels(ais_gap, l_win, u_win, w_size, s_column,
+                                   t_column, df, l_poly,
+                                   uni_val, unique_col)
+        # r = pool.apply_async(analysing_vessels, args, callback=return_data)
+        results.append(df_tot)
         # r = parallelize_dataframe(analysing_vessels, args)
     pool.close()
     pool.join()
     df_tot = pd.concat(df_ships)
     prepros.csv_out(df_tot, out_file)
+
+
+def setup_dir(path):
+    try:
+        os.mkdir(path)
+    except OSError:
+        log.error("Creation of the directory %s failed" % path)
+    else:
+        log.info("Successfully created the directory %s " % path)
 
 
 if __name__ == '__main__':
@@ -154,8 +168,10 @@ if __name__ == '__main__':
     fun_logger.handle_console(log)
     # Parse argument options
     csv_file = options.CSV
-    out_file = options.OUTPUT
+    out_dir = options.OUTPUT
     yml_file = options.YAML
+    # Create directory specified on CLI
+    setup_dir(out_dir)
     # load instructions
     instruct = yml.read_file(yml_file)
     print(yml_tst.safe_dump(instruct))
@@ -174,7 +190,7 @@ if __name__ == '__main__':
         extr_class_Time = datetime.now()
         for extract in instruct['extract']:
             p = multiprocessing.Process(target=extract_classes,
-                                        args=(extract, df,))
+                                        args=(extract, df, out_dir,))
             processes.append(p)
             p.start()
         total = datetime.now() - extr_class_Time
@@ -183,7 +199,7 @@ if __name__ == '__main__':
         extr_ves_Time = datetime.now()
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=prep_vessel_types,
-                                        args=(extract, df,))
+                                        args=(extract, df, out_dir,))
             p.start()
         total = datetime.now() - extr_ves_Time
         print("Total time extracting vessels is: {0}".format(total))
@@ -193,7 +209,9 @@ if __name__ == '__main__':
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
                                               df,
-                                              l_poly,))
+                                              l_poly,
+                                              out_dir,
+                                              ))
             p.start()
         total = datetime.now() - analyzeTime
         print("Total time analysis is: {0}".format(total))

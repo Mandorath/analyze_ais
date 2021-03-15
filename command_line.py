@@ -22,12 +22,12 @@ class parseOptions():
                 required=True,
             )
         self.parser.add_argument(
-                '--output-file-name',
+                '--output-dir',
                 dest="OUTPUT",
                 action="store",
-                default="out.csv",
+                default="/AIS/",
                 help="""
-                Specify csv output file.
+                Specify the directory to ouput files in.
                 """,
                 required=True,
             )
