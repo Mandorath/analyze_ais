@@ -28,6 +28,39 @@ analyze:
     window_size: 5
     speed_column: "SOG"
     time_column: "# Timestamp"
-
-
-# Towing long/wide
+    in_file: 'Cargo.out'
+  - elem: "Fishing"
+    column: "Ship type"
+    out_file: "Fishing2.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    window_size: 5
+    speed_column: "SOG"
+    in_file: 'Fishing.out'
+  - elem: "Passenger"
+    column: "Ship type"
+    out_file: "Passenger2.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
+    in_file: "Passenger.out"
+  - elem: "Tanker"
+    column: "Ship type"
+    out_file: "Tanker2.out"
+    remove_in_df: True
+    unique_column: "MMSI"
+    ais_gap: 6
+    l_bound_win: 20
+    u_bound_win: 40
+    window_size: 5
+    speed_column: "SOG"
+    time_column: "# Timestamp"
+    in_file: "Tanker.out"
