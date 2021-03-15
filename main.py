@@ -111,10 +111,10 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                                             'gr_prct',
                                             l_win,
                                             u_win)
-    df_ship_type = analyze.perc_change_decr(df_ship_type,
-                                            'gr_prct',
-                                            l_win,
-                                            u_win)
+    # df_ship_type = analyze.perc_change_decr(df_ship_type,
+    #                                        'gr_prct',
+    #                                        l_win,
+    #                                        u_win)
     geo_df = analyze.check_in_polygon(df_ship_type, l_poly)
     g_df = pd.DataFrame(geo_df)
     merge_df = pd.DataFrame()
@@ -170,7 +170,7 @@ def prep_analysis(extract, df, l_poly, out_dir):
     out_loc = "{0}/{1}".format(out_dir, out_file)
     out_loc2 = "{0}/{1}".format(out_dir, out_file2)
     out_loc3 = "{0}/{1}".format(out_dir, out_file3)
-    # prepros.csv_out(df_tot, out_loc)
+    prepros.csv_out(df_tot, out_loc)
     # prepros.csv_out(df_t_g, out_loc2)
     prepros.csv_out(df_m, out_loc3)
 

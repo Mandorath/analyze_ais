@@ -84,7 +84,9 @@ class AnalyzeDf():
 
         """
         df_ret = df
-        df_ret['h_incr'] = df[column].between(l_perc, h_perc, inclusive=True)
+        df[column] = df_ret[column].abs()
+        df_ret['flag_spd_chng'] = df[column].between(l_perc, h_perc,
+                                                     inclusive=True)
         # df.join(df_ret['h_incr'])
         return df_ret
 
@@ -101,7 +103,8 @@ class AnalyzeDf():
 
         """
         df_ret = df
-        df_ret['h_decr'] = df[column].between(-l_perc, -h_perc, inclusive=True)
+        df_ret[column] = df_ret[column].abs()
+        df_ret['h_decr'] = df[column].between(l_perc, h_perc, inclusive=True)
         return df_ret
 
     # Source: https://stackoverflow.com/questions/36399381/whats-the-fastest-way-of-checking-if-a-point-is-inside-a-polygon-in-python
