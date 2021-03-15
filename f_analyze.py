@@ -139,7 +139,7 @@ class AnalyzeDf():
                                      df.Latitude))
         data_poly = gpd.read_file(polygon)
         within = gpd.sjoin(gdf, data_poly, how='inner', op='within')
-        outside = ~gpd.sjoin(gdf, data_poly, how='inner', op='within')
+        outside = gpd.sjoin(gdf, data_poly, how='left', op='within')
         if not within.empty and not outside.empty:
             within['Zn_entry'] = True
             outside['Zn_entry'] = False
