@@ -23,8 +23,8 @@ analyze:
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
-    l_bound_win: 20
-    u_bound_win: 40
+    l_bound_win: 0.2
+    u_bound_win: 0.4
     window_size: 5
     speed_column: "SOG"
     time_column: "# Timestamp"
@@ -35,8 +35,8 @@ analyze:
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
-    l_bound_win: 20
-    u_bound_win: 40
+    l_bound_win: 0.2
+    u_bound_win: 0.4
     window_size: 5
     speed_column: "SOG"
     in_file: 'Fishing.out'
@@ -46,8 +46,8 @@ analyze:
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
-    l_bound_win: 20
-    u_bound_win: 40
+    l_bound_win: 0.2
+    u_bound_win: 0.4
     window_size: 5
     speed_column: "SOG"
     time_column: "# Timestamp"
@@ -58,8 +58,8 @@ analyze:
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
-    l_bound_win: 20
-    u_bound_win: 40
+    l_bound_win: 0.2
+    u_bound_win: 0.4
     window_size: 5
     speed_column: "SOG"
     time_column: "# Timestamp"
