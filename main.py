@@ -63,7 +63,7 @@ def extract_vessel_types(df, uni_val, unique_col):
     df_ship_type = prepros.extract_rows_type(df, uni_val, unique_col)
     print(df_ship_type)
     log.info("Adding vessel with MMSI {0} dataframe to vessel_type dataframe".format(uni_val))
-    df_ships.append(df_ship_type)
+    return df_ship_type
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
 
@@ -97,6 +97,7 @@ def prep_vessel_types(extract, df, out_dir):
     df_tot = pd.concat(df_ships)
     out_loc = "{0}/{1}".format(out_dir, out_file)
     prepros.csv_out(df_tot, out_loc)
+
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
                       l_poly, uni_val, unique_col):
