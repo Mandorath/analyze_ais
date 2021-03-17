@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dates=("20190826")
+dates=("20190701" "20190704")
 
 for i in ${dates[@]};
 do
