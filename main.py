@@ -124,7 +124,7 @@ def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
     return g_df
 
 
-def prep_analysis(extract, l_poly, out_dir):
+def prep_analysis(extract, l_poly, out_dir, analyzeTime):
     out_file = extract['out_file']
     rem_df = extract['remove_in_df']
     unique_col = extract['unique_column']
@@ -156,18 +156,10 @@ def prep_analysis(extract, l_poly, out_dir):
     # pool.close()
     # pool.join()
     df_tot = pd.concat(results)
-    # l_columns = ['Unnamed: 0, Unnamed: 0.1']
-    # df = prepros.drop_col(df, l_columns)
-    # df_t_g = pd.concat(geo_results)
-    # df_m = pd.concat(merge_results)
-    # out_file2 = "geo_out"
-    # out_file3 = "merge_out"
     out_loc = "{0}/{1}".format(out_dir, out_file)
-    # out_loc2 = "{0}/{1}".format(out_dir, out_file2)
-    # out_loc3 = "{0}/{1}".format(out_dir, out_file3)
     prepros.csv_out(df_tot, out_loc)
-    # prepros.csv_out(df_t_g, out_loc2)
-    # prepros.csv_out(df_m, out_loc3)
+    total = datetime.now() - analyzeTime
+
 
 def setup_dir(path):
     try:
@@ -224,7 +216,8 @@ if __name__ == '__main__':
         if 'drop_columns' in instruct:
             l_columns = instruct['drop_columns']
             print(l_columns)
-            df = prepros.drop_col(df, l_columns)
+            try:
+              df = prepros.drop_col(df, l_columns)
         if 'polygon' in instruct:
             l_poly = instruct['polygon']['poly_file']
             print(l_poly)
@@ -243,9 +236,9 @@ if __name__ == '__main__':
                                         args=(extract,
                                               l_poly,
                                               out_dir,
+                                              analyzeTime,
                                               ))
             p.start()
-        total = datetime.now() - analyzeTime
         print("Total time analysis is: {0}".format(total))
 
 

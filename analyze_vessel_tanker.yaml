@@ -17,9 +17,9 @@ polygon:
   poly_file: 'polygon.geojson'
 
 analyze:
-  - elem: "Cargo"
+  - elem: "Tanker"
     column: "Ship type"
-    out_file: "Cargo2.out"
+    out_file: "Tanker2.out"
     remove_in_df: True
     unique_column: "MMSI"
     ais_gap: 6
@@ -28,4 +28,4 @@ analyze:
     window_size: 5
     speed_column: "SOG"
     time_column: "# Timestamp"
-    in_file: 'Cargo.out'
+    in_file: "Tanker.out"
