@@ -67,7 +67,7 @@ def extract_vessel_types(df, uni_val, unique_col):
     # df_ships = pd.concat([df_ships, df_ship_type], ignore_index=True)
 
 
-def prep_vessel_types(extract, df, out_dir):
+def prep_vessel_types(extract, df, out_dir, extr_ves_Time):
     """
     Extracts the vessel types specified in the yaml file.
 
@@ -97,6 +97,9 @@ def prep_vessel_types(extract, df, out_dir):
     df_tot = pd.concat(df_ships)
     out_loc = "{0}/{1}".format(out_dir, out_file)
     prepros.csv_out(df_tot, out_loc)
+    total = datetime.now() - extr_ves_Time
+    print("Total time extracting vessels is: {0}".format(total))
+    log.info("Total time extracting vessels is: {0}".format(total))
 
 
 def analysing_vessels(ais_gap, l_win, u_win, w_size, s_column, t_column, df,
@@ -159,6 +162,8 @@ def prep_analysis(extract, l_poly, out_dir, analyzeTime):
     out_loc = "{0}/{1}".format(out_dir, out_file)
     prepros.csv_out(df_tot, out_loc)
     total = datetime.now() - analyzeTime
+    print("Total time analysis is: {0}".format(total))
+    log.info("Total time analysis is: {0}".format(total))
 
 
 def setup_dir(path):
@@ -222,10 +227,9 @@ if __name__ == '__main__':
             print(l_poly)
         for extract in instruct['extract_vessel_types']:
             p = multiprocessing.Process(target=prep_vessel_types,
-                                        args=(extract, df, out_dir,))
+                                        args=(extract, df, out_dir,
+                                              extr_ves_Time))
             p.start()
-        total = datetime.now() - extr_ves_Time
-        print("Total time extracting vessels is: {0}".format(total))
     if 'analyze' in instruct:
         analyzeTime = datetime.now()
         if 'polygon' in instruct:
@@ -238,7 +242,7 @@ if __name__ == '__main__':
                                               analyzeTime,
                                               ))
             p.start()
-        print("Total time analysis is: {0}".format(total))
+
 
 
             # prepros.csv_out(df_unique, out_file)
