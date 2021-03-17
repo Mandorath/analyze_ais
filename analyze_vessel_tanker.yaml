@@ -3,15 +3,6 @@
 # out_file: Specify the file in which the output should be stored.
 # remove_in_df: Specify if the extracted vessel type should be removed from the in-memory dataframe
 # unique_column: Specify the column from which the a ship can be uniquely identified.
-drop_columns:
-  - 'Type of position fixing device'
-  -  'Destination'
-  - 'ETA'
-  - 'Data source type'
-  - 'A'
-  - 'B'
-  - 'C'
-  - 'D'
 
 polygon:
   poly_file: 'polygon.geojson'

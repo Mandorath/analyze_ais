@@ -116,6 +116,7 @@ class AnalyzeDf():
         Create a polygon based on the provided coordinates.
 
         Args:
+        ----
             list_coordinates: List containing long/lat coordinates.
 
         """
@@ -128,7 +129,7 @@ class AnalyzeDf():
 
         Args:
         ----
-            point: Lat/Long point
+            df: Pandas dataframe
             polygon: Polygon created based on a list of lat/long coordinates.
 
         """

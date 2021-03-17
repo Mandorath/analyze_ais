@@ -216,8 +216,7 @@ if __name__ == '__main__':
         if 'drop_columns' in instruct:
             l_columns = instruct['drop_columns']
             print(l_columns)
-            try:
-              df = prepros.drop_col(df, l_columns)
+            df = prepros.drop_col(df, l_columns)
         if 'polygon' in instruct:
             l_poly = instruct['polygon']['poly_file']
             print(l_poly)
