@@ -2,7 +2,7 @@
 
 dates=("20190826")
 
-for i in ${!dates[@]};
+for i in ${dates[@]};
 do
   python main.py --csv /home/maurice/aisdk_${i}/classA.out --output-dir /home/maurice/aisdk_${i} --log-file aisdk_${i}_cargo.log --yaml-file analyze_vessel_cargo.yaml
   python main.py --csv /home/maurice/aisdk_${i}/classA.out --output-dir /home/maurice/aisdk_${i} --log-file aisdk_${i}_fishing.log --yaml-file analyze_vessel_fishing.yaml
