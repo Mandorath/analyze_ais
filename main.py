@@ -194,8 +194,8 @@ def get_stats(extract, out_dir, analyzeTime, date):
     else:
         df_o = prepros.csv_to_df(out_loc)
         stats = calc_stats(df, col_ais, col_spd, col_zn,
-                           unique_col, date, df_o)
-        prepros.csv_out(stats, out_loc, ship_count)
+                           unique_col, date, df_o, ship_count)
+        prepros.csv_out(stats, out_loc)
 
 def get_plots(extract, out_dir, analyzeTime, date):
     date_t = extract['date']
