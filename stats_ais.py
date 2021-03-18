@@ -41,12 +41,14 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                                                         sort=True,
                                                         ascending=True
                                                         ).mul(100).rename_axis('spd_gap').reset_index(name='Percentage')
+    print(percentage_spd_gap)
     percentage_spd_gap_true = percentage_spd_gap.at[0, 'Percentage']
     percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
     percentage_all = df['spd_gap_zn'].value_counts(normalize=True,
                                                    sort=True,
                                                    ascending=True
                                                    ).mul(100).rename_axis('spd_gap_zn').reset_index(name='Percentage')
+    print(percentage_all)
     percentage_all_true = percentage_all.at[0, 'Percentage']
     percentage_all_false = percentage_all.at[1, 'Percentage']
     stats = {'date': [date],
