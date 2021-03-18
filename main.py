@@ -273,7 +273,6 @@ if __name__ == '__main__':
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=get_stats,
                                         args=(extract,
-                                              l_poly,
                                               out_dir,
                                               analyzeTime,
                                               date,
