@@ -203,8 +203,17 @@ def get_plots(extract, out_dir, analyzeTime, date):
     fishing_f = extract['fishing_f']
     passenger_f = extract['passenger_f']
     out_dir = extract['out_dir']
+    car_loc = "{0}/{1}/{2}".format(out_dir, date_t, cargo_f)
+    tank_loc = "{0}/{1}/{2}".format(out_dir, date_t, tanker_f)
+    fish_loc = "{0}/{1}/{2}".format(out_dir, date_t, fishing_f)
+    pass_loc = "{0}/{1}/{2}".format(out_dir, date_t, passenger_f)
+    df_cargo = prepros.csv_to_df(car_loc)
+    df_tanker = prepros.csv_to_df(tank_loc)
+    df_fishing = prepros.csv_to_df(fish_loc)
+    df_passenger = prepros.csv_to_df(pass_loc)
+    plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
+               out_dir)
 
-    plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string
 
 def setup_dir(path):
     try:
