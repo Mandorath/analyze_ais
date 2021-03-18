@@ -270,7 +270,7 @@ if __name__ == '__main__':
             p.start()
     if 'statistics' in instruct:
         analyzeTime = datetime.now()
-        for extract in instruct['analyze']:
+        for extract in instruct['statistics']:
             p = multiprocessing.Process(target=get_stats,
                                         args=(extract,
                                               out_dir,
