@@ -36,7 +36,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                'Zone_false': percentage_zone_false,
                }
 
-    df_out = df_out.append(dfstats)
+    df_out = df_out.append(dfstats, ignore_index=True)
     return df_out
 
 
