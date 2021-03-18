@@ -212,7 +212,7 @@ def get_plots(extract, out_dir, analyzeTime, date):
     df_fishing = prepros.csv_to_df(fish_loc)
     df_passenger = prepros.csv_to_df(pass_loc)
     plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
-               out_dir)
+               out_dir, date_t)
 
 
 def setup_dir(path):

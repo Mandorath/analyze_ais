@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
-               out_dir):
+               out_dir, date):
     '''
     Statistics calculation function.
     '''
