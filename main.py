@@ -13,7 +13,7 @@ from f_analyze import AnalyzeDf
 from datetime import datetime
 from stats_ais import calc_stats
 from stats_ais import create_stats_df
-from plotter import plot_stats
+from plotting import plot_stats
 
 
 # from search_ais_gaps import search_ais_gaps
