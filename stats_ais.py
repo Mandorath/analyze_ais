@@ -56,6 +56,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                                                    ).mul(100).rename_axis('spd_gap_zn').reset_index(name='Percentage')
     print(percentage_all)
     percentage_all_t = percentage_all.at[0, 'spd_gap_zn']
+    print(percentage_all_t)
     if percentage_all_t is False:
         percentage_all_true = 0.0
         percentage_all_false = percentage_all.at[0, 'Percentage']
