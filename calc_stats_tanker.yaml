@@ -4,7 +4,7 @@
 # remove_in_df: Specify if the extracted vessel type should be removed from the in-memory dataframe
 # unique_column: Specify the column from which the a ship can be uniquely identified.
 
-analyze:
+statistics:
   - elem: "Tanker"
     column: "Ship type"
     out_file: "Tanker_stats.out"
