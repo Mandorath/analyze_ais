@@ -58,6 +58,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig('{1}/cargo{0}.png'.format(date, out_dir))
 
     #2
+    plt.clf()
     sns.lineplot(data=Tanker2)
     plt.xlabel("date")
     plt.ylabel("percentage")
@@ -65,6 +66,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig('{1}/tankers{0}.png'.format(date, out_dir))
 
     #3
+    plt.clf()
     sns.lineplot(data=Fishing2)
     plt.xlabel("date")
     plt.ylabel("percentage")
@@ -73,6 +75,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
 
 
     #4
+    plt.clf()
     sns.lineplot(data=Passenger2)
     plt.xlabel("date")
     plt.ylabel("percentage")
