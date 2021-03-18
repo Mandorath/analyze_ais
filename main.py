@@ -184,16 +184,18 @@ def get_stats(extract, out_dir, analyzeTime, date):
     out_dir_m = "/home/maurice/{0}".format(date_m)
     df = prepros.csv_to_df(f_loc)
     setup_dir(out_dir_m)
+    l_unique = prepros.extract_uniq_val(df, unique_col)
+    ship_count = len(l_unique)
     if not os.path.exists(out_loc):
         df_o = create_stats_df()
         stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col,
-                           date, df_o)
+                           date, df_o, ship_count)
         prepros.csv_out(stats, out_loc)
     else:
         df_o = prepros.csv_to_df(out_loc)
         stats = calc_stats(df, col_ais, col_spd, col_zn,
                            unique_col, date, df_o)
-        prepros.csv_out(stats, out_loc)
+        prepros.csv_out(stats, out_loc, ship_count)
 
 def get_plots(extract, out_dir, analyzeTime, date):
     date_t = extract['date']

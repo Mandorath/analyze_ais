@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
+def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out, ship_count):
     '''
     Statistics calculation function.
     '''
@@ -74,6 +74,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
              'spd_gap_false': [percentage_spd_gap_false],
              'all_true': [percentage_all_true],
              'all_false': [percentage_all_false],
+             'ship_count': [ship_count]
              }
 
     dfstats = pd.DataFrame(stats)
@@ -90,6 +91,11 @@ def create_stats_df():
                'Speed_false': [],
                'Zone_true': [],
                'Zone_false': [],
+               'spd_gap_true': [],
+               'spd_gap_false': [],
+               'all_true': [],
+               'all_false': [],
+               'ship_count': []
                }
     df = pd.DataFrame(dfstats)
     return df
