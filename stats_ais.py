@@ -42,7 +42,13 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                                                         ascending=True
                                                         ).mul(100).rename_axis('spd_gap').reset_index(name='Percentage')
     print(percentage_spd_gap)
-    percentage_spd_gap_true = percentage_spd_gap.at[0, 'Percentage']
+    percentage_spd_gap = percentage_spd_gap.at[0, 'spd_gap']
+    if percentage_spd_gap is False:
+        percentage_spd_gap_true = 0.0
+        percentage_spd_gap_false = percentage_spd_gap.at[0, 'Percentage']
+    else:
+        percentage_spd_gap_true = percentage_spd_gap.at[0, 'Percentage']
+        percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
     percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
     percentage_all = df['spd_gap_zn'].value_counts(normalize=True,
                                                    sort=True,
@@ -50,8 +56,13 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                                                    dropna=False
                                                    ).mul(100).rename_axis('spd_gap_zn').reset_index(name='Percentage')
     print(percentage_all)
-    percentage_all_true = percentage_all.at[0, 'Percentage']
-    percentage_all_false = percentage_all.at[1, 'Percentage']
+    percentage_all = percentage_all.at[0, 'spd_gap_zn']
+    if percentage_all is False:
+        percentage_all_true = 0.0
+        percentage_all_false = percentage_all.at[0, 'Percentage']
+    else:
+        percentage_all_true = percentage_all.at[0, 'Percentage']
+        percentage_all_false = percentage_all.at[1, 'Percentage']
     stats = {'date': [date],
              'Gap_true': [percentage_gap_true],
              'Gap_false': [percentage_gap_false],
