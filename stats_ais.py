@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
