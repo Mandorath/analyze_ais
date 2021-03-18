@@ -50,6 +50,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true"]]
 
     #1
+    plt.clf()
     sns.lineplot(data=Cargo2)
     plt.xlabel("date")
     plt.ylabel("percentage")
