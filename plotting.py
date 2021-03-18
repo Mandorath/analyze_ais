@@ -58,10 +58,15 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     # date vs anomalies
     #####
 
-    Cargo2=df_cargo[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
-    Fishing2=df_fishing[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
-    Tanker2=df_tanker[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
-    Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
+    Cargo2=df_cargo[["date","Gap_true","Speed_true","Zone_true"]]
+    Fishing2=df_fishing[["date","Gap_true","Speed_true","Zone_true"]]
+    Tanker2=df_tanker[["date","Gap_true","Speed_true","Zone_true"]]
+    Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true"]]
+
+    Cargo3=df_cargo[["spd_gap_true", "all_true"]]
+    Fishing3=df_fishing[["spd_gap_true", "all_true"]]
+    Tanker3=df_tanker[["spd_gap_true", "all_true"]]
+    Passenger3=df_passenger[["spd_gap_true", "all_true"]]
 
     #1
     plt.clf()
@@ -95,3 +100,36 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.ylabel("percentage")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
     plt.savefig('{1}/pass{0}.png'.format(date, out_dir))
+
+    #1
+    plt.clf()
+    sns.lineplot(data=Cargo3)
+    plt.xlabel("date")
+    plt.ylabel("percentage")
+    plt.title("Anomalies for Cargo ships in  {0}".format(date_string))
+    plt.savefig('{1}/cargo{0}_combined.png'.format(date, out_dir))
+
+    #2
+    plt.clf()
+    sns.lineplot(data=Tanker3)
+    plt.xlabel("date")
+    plt.ylabel("percentage")
+    plt.title("Anomalies for Tankers in  {0}".format(date_string))
+    plt.savefig('{1}/tankers{0}_combined.png'.format(date, out_dir))
+
+    #3
+    plt.clf()
+    sns.lineplot(data=Fishing3)
+    plt.xlabel("date")
+    plt.ylabel("percentage")
+    plt.title("Anomalies for fishing vessels  {0}".format(date_string))
+    plt.savefig('{1}/fish{0}_combined.png'.format(date, out_dir))
+
+
+    #4
+    plt.clf()
+    sns.lineplot(data=Passenger3)
+    plt.xlabel("date")
+    plt.ylabel("percentage")
+    plt.title("Anomalies for passenger ships in  {0}".format(date_string))
+    plt.savefig('{1}/pass{0}_combined.png'.format(date, out_dir))
