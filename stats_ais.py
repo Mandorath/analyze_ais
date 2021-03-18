@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def calc_stats(df, file, col_ais, col_spd, col_zn, unique_col, date, df_out):
+def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     '''
     Statistics calculation function.
     '''
