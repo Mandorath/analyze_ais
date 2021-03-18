@@ -11,5 +11,5 @@ statistics:
     unique_column: "MMSI"
     column_ais: "AIS_G"
     column_speed: "flag_spd_chng"
-    column_zone: "Zn_entry"
+    column_zone: 'Zn_entry'
     in_file: 'Fishing2.out'
