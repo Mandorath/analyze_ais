@@ -18,7 +18,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
                                       pd.np.where(df[['flag_spd_chng',
                                                       'AIS_G']].isnull().all(1), None,
                                                                         False))
-
+    print(df)
     percent_g = df[col_ais].value_counts(normalize=True,
                                            sort=True,
                                            ascending=True
