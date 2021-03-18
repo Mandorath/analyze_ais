@@ -11,6 +11,7 @@ from command_line import parseOptions
 from pro_yml import yaml_extract
 from f_analyze import AnalyzeDf
 from datetime import datetime
+from stats_ais import calc_stats
 
 # from search_ais_gaps import search_ais_gaps
 
@@ -166,6 +167,22 @@ def prep_analysis(extract, l_poly, out_dir, analyzeTime):
     log.info("Total time analysis is: {0}".format(total))
 
 
+def get_stats(extract, out_dir, analyzeTime):
+    out_file = extract['out_file']
+    unique_col = extract['unique_column']
+    ais_gap = extract['ais_gap']
+    l_win = extract['l_bound_win']
+    u_win = extract['u_bound_win']
+    w_size = extract['window_size']
+    s_column = extract['speed_column']
+    t_column = extract['time_column']
+    in_file = extract['in_file']
+    stats = calc_stats()
+    out_loc = "{0}/{1}".format(out_dir, out_file)
+    prepros.csv_out(df_tot, out_loc)
+
+
+
 def setup_dir(path):
     try:
         os.mkdir(path)
@@ -232,8 +249,6 @@ if __name__ == '__main__':
             p.start()
     if 'analyze' in instruct:
         analyzeTime = datetime.now()
-        if 'polygon' in instruct:
-            l_poly = instruct['polygon']['poly_file']
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
@@ -242,7 +257,18 @@ if __name__ == '__main__':
                                               analyzeTime,
                                               ))
             p.start()
-
+    if 'statistics' in instruct:
+        analyzeTime = datetime.now()
+        if 'polygon' in instruct:
+            l_poly = instruct['polygon']['poly_file']
+        for extract in instruct['analyze']:
+            p = multiprocessing.Process(target=get_stats,
+                                        args=(extract,
+                                              l_poly,
+                                              out_dir,
+                                              analyzeTime,
+                                              ))
+            p.start()
 
 
             # prepros.csv_out(df_unique, out_file)
