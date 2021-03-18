@@ -13,6 +13,7 @@ from f_analyze import AnalyzeDf
 from datetime import datetime
 from stats_ais import calc_stats
 from stats_ais import create_stats_df
+from plotter import plot_stats
 
 
 # from search_ais_gaps import search_ais_gaps
@@ -194,7 +195,16 @@ def get_stats(extract, out_dir, analyzeTime, date):
                            unique_col, date, df_o)
         prepros.csv_out(stats, out_loc)
 
+def get_plots(extract, out_dir, analyzeTime, date):
+    date_t = extract['date']
+    date_string = extract['date_string']
+    cargo_f = extract['cargo_f']
+    tanker_f = extract['tanker_f']
+    fishing_f = extract['fishing_f']
+    passenger_f = extract['passenger_f']
+    out_dir = extract['out_dir']
 
+    plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string
 
 def setup_dir(path):
     try:
@@ -283,7 +293,16 @@ if __name__ == '__main__':
                                               date,
                                               ))
             p.start()
-
+    if 'plotting' in instruct:
+        analyzeTime = datetime.now()
+        for extract in instruct['plotting']:
+            p = multiprocessing.Process(target=get_plots,
+                                        args=(extract,
+                                              out_dir,
+                                              analyzeTime,
+                                              date,
+                                              ))
+            p.start()
 
             # prepros.csv_out(df_unique, out_file)
         # if rem_df:
