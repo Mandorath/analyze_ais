@@ -40,14 +40,28 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
     plt.savefig('{1}/sc{0}.png'.format(date, out_dir))
 
+    #4
+    g=sns.relplot(x='date', y='spd_gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Speed change for 4 ship types in  {0}".format(date_string))
+    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir))
+
+    #5
+    g=sns.relplot(x='date', y='all_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Speed change for 4 ship types in  {0}".format(date_string))
+    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir))
+
     #####
     # date vs anomalies
     #####
 
-    Cargo2=df_cargo[["date","Gap_true","Speed_true","Zone_true"]]
-    Fishing2=df_fishing[["date","Gap_true","Speed_true","Zone_true"]]
-    Tanker2=df_tanker[["date","Gap_true","Speed_true","Zone_true"]]
-    Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true"]]
+    Cargo2=df_cargo[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
+    Fishing2=df_fishing[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
+    Tanker2=df_tanker[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
+    Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true", "spd_gap_true", "all_true"]]
 
     #1
     plt.clf()
