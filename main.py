@@ -12,6 +12,8 @@ from pro_yml import yaml_extract
 from f_analyze import AnalyzeDf
 from datetime import datetime
 from stats_ais import calc_stats
+from stats_ais import create_stats_df
+
 
 # from search_ais_gaps import search_ais_gaps
 
@@ -167,7 +169,7 @@ def prep_analysis(extract, l_poly, out_dir, analyzeTime):
     log.info("Total time analysis is: {0}".format(total))
 
 
-def get_stats(extract, out_dir, analyzeTime):
+def get_stats(extract, out_dir, analyzeTime, date):
     out_file = extract['out_file']
     unique_col = extract['unique_column']
     col_ais = extract['column_ais']
@@ -175,10 +177,17 @@ def get_stats(extract, out_dir, analyzeTime):
     col_zn = extract['column_zone']
     in_file = extract['in_file']
     f_loc = "{0}/{1}".format(out_dir, in_file)
-    df = prepros.csv_to_df(f_loc)
-    stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col)
     out_loc = "{0}/{1}".format(out_dir, out_file)
-    prepros.csv_out(stats, out_loc)
+    df = prepros.csv_to_df(f_loc)
+    if not os.path.exists(out_loc):
+        df = create_stats_df()
+        stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col, date)
+        prepros.csv_out(stats, out_loc)
+    else:
+        df_out = prepros.csv_to_df(out_loc)
+        stats = calc_stats(df, col_ais, col_spd, col_zn,
+                           unique_col, date, df_out)
+        prepros.csv_out(stats, out_loc)
 
 
 
@@ -205,6 +214,7 @@ if __name__ == '__main__':
     csv_file = options.CSV
     out_dir = options.OUTPUT
     yml_file = options.YAML
+    date = options.DATE
     # Create directory specified on CLI
     setup_dir(out_dir)
     # load instructions
@@ -266,6 +276,7 @@ if __name__ == '__main__':
                                               l_poly,
                                               out_dir,
                                               analyzeTime,
+                                              date,
                                               ))
             p.start()
 

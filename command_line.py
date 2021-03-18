@@ -53,5 +53,16 @@ class parseOptions():
                 """,
                 required=True,
             )
+        self.parser.add_argument(
+                '--date',
+                dest="DATE",
+                action="store",
+                default="20190701",
+                help="""
+                Specify date of the file
+                Defaults to 20190701.
+                """,
+                required=False,
+            )
         args = self.parser.parse_args()
         return args

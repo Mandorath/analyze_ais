@@ -1,37 +1,55 @@
 import pandas as pd
 
 
-def calc_stats(df, file, col_ais, col_spd, col_zn, unique_col):
+def calc_stats(df, file, col_ais, col_spd, col_zn, unique_col, date, df_out):
     '''
     Statistics calculation function.
     '''
     # df = pd.read_csv(file, delimiter=",")
     # the percentage of "True" in AIS gaps
-    percent_gap = df[col_ais].value_counts(normalize=True,
+    percent_g = df[col_ais].value_counts(normalize=True,
                                            sort=True,
                                            ascending=True
-                                           ).mul(100).astype(str)+'%'
-    print(percent_gap)
+                                           ).mul(100).rename_axis('Gap').reset_index(name='Percentage')
+    percentage_gap_true = percent_g.at[0, 'Percentage']
+    percentage_gap_false = percent_g.at[1, 'Percentage']
     # the percentage of "True" in speed change
     percent_sc = df[col_spd].value_counts(normalize=True,
                                           sort=True,
                                           ascending=True
-                                          ).mul(100).astype(str)+'%'
-    print(percent_sc)
+                                          ).mul(100).rename_axis('SpeedChange').reset_index(name='Percentage')
+    percentage_speed_true = percent_sc.at[0, 'Percentage']
+    percentage_speed_false = percent_sc.at[1, 'Percentage']
     # the percentage of "True" in zone entry with unique MMSI number
-    dfc = df[cargo[col_zn] == True]
+    dfc = df[df[col_zn] is True]
     group1 = dfc.groupby(unique_col)['Zn_entry'].unique()
     group2 = df[unique_col].unique()
-    percentage_zone = len(group1)/len(group2)*100
-    print("True:", percentage_zone, "%")
-    dfstats = {'Anomaly': ['Gap', 'Speed', 'Zone'],
-               'Percentage': [percent_gap, percent_sc, percentage_zone]
+    percentage_zone_true, percentage_zone_false = ((len(group1)/len(group2)*100), (100-(len(group1)/len(group2)*100)))
+
+    dfstats = {'date': date,
+               'Gap_true': percentage_gap_true,
+               'Gap_false': percentage_gap_false,
+               'Speed_true': percentage_speed_true,
+               'Speed_false': percentage_speed_false,
+               'Zone_true': percentage_zone_true,
+               'Zone_false': percentage_zone_false,
                }
-    df_out = pd.DataFrame(dfstats, columns=['Anomaly', 'Percentage'])
+
+    df_out = df_out.append(dfstats)
     return df_out
 
 
-
+def create_stats_df():
+    dfstats = {'date': [],
+               'Gap_true': [],
+               'Gap_false': [],
+               'Speed_true': [],
+               'Speed_false': [],
+               'Zone_true': [],
+               'Zone_false': [],
+               }
+    df = pd.DataFrame(dfstats)
+    return df
 # '''
 # fishing
 # '''
