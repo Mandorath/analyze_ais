@@ -33,7 +33,6 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     percentage_speed_true = percent_sc.at[0, 'Percentage']
     percentage_speed_false = percent_sc.at[1, 'Percentage']
     # the percentage of "True" in zone entry with unique MMSI number
-    print(df)
     dfc = df[df[col_zn] == True]
     group1 = dfc.groupby(unique_col)['Zn_entry'].unique()
     group2 = df[unique_col].unique()
@@ -47,9 +46,9 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     percentage_all = df['spd_gap_zn'].value_counts(normalize=True,
                                                    sort=True,
                                                    ascending=True
-                                                   ).mul(100).rename_axis('spd_gap').reset_index(name='Percentage')
-    percentage_spd_gap_true = percentage_all.at[0, 'Percentage']
-    percentage_spd_gap_false = percentage_all.at[1, 'Percentage']
+                                                   ).mul(100).rename_axis('spd_gap_zn').reset_index(name='Percentage')
+    percentage_all_true = percentage_all.at[0, 'Percentage']
+    percentage_all_false = percentage_all.at[1, 'Percentage']
     stats = {'date': [date],
              'Gap_true': [percentage_gap_true],
              'Gap_false': [percentage_gap_false],
@@ -59,6 +58,8 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
              'Zone_false': [percentage_zone_false],
              'spd_gap_true': [percentage_spd_gap_true],
              'spd_gap_false': [percentage_spd_gap_false],
+             'all_true': [percentage_all_true],
+             'all_false': [percentage_all_false],
              }
 
     dfstats = pd.DataFrame(stats)
