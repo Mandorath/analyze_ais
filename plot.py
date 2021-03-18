@@ -1,5 +1,6 @@
 import pandas as pd
 import seaborn as sns
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 
 Cargo = pd.read_csv('/Users/caseywong/Documents/GitHub/analyze_ais/Cargo_stats.out', delimiter = ",")
@@ -23,21 +24,21 @@ g=sns.relplot(x='date', y='Zone_true', data=concatenated ,kind='line', hue= 'dat
 g.fig.autofmt_xdate()
 plt.ylabel("percentage")
 plt.title("Zone entry for 4 ship types in July 2020")
-plt.show()
+plt.savefig('zone202007.png')
 
 #2
 g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
 g.fig.autofmt_xdate()
 plt.ylabel("percentage")
 plt.title("AIS Gaps for 4 ship types in July 2020")
-plt.show()
+plt.savefig('gap202007.png')
 
 #3
 g=sns.relplot(x='date', y='Speed_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
 g.fig.autofmt_xdate()
 plt.ylabel("percentage")
 plt.title("Speed change for 4 ship types in July 2020")
-plt.show()
+plt.savefig('sc202007.png')
 
 #####
 # date vs anomalies
@@ -49,29 +50,29 @@ Tanker2=Tanker[["date","Gap_true","Speed_true","Zone_true"]]
 Passenger2=Passenger[["date","Gap_true","Speed_true","Zone_true"]]
 
 #1
-sns.lineplot(data=Cargo2)
+sns.relplot(data=Cargo2,kind="line")
 plt.xlabel("date")
 plt.ylabel("percentage")
 plt.title("Anomalies for Cargo ships in July 2020")
-plt.show()
+plt.savefig('cargo202007.png')
 
 #2
 sns.lineplot(data=Tanker2)
 plt.xlabel("date")
 plt.ylabel("percentage")
 plt.title("Anomalies for Tankers in July 2020")
-plt.show()
+plt.savefig('tankers202007.png')
 
 #3
 sns.lineplot(data=Fishing2)
 plt.xlabel("date")
 plt.ylabel("percentage")
 plt.title("Anomalies for fishing vessels in July 2020")
-plt.show()
+plt.savefig('fish202007.png')
 
 #4
 sns.lineplot(data=Passenger2)
 plt.xlabel("date")
 plt.ylabel("percentage")
 plt.title("Anomalies for passenger ships in July 2020")
-plt.show()
+plt.savefig('pass202007.png')
