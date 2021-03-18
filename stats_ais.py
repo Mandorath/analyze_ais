@@ -22,7 +22,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     percentage_speed_false = percent_sc.at[1, 'Percentage']
     # the percentage of "True" in zone entry with unique MMSI number
     print(df)
-    dfc = df[df[col_zn] is True]
+    dfc = df[df[col_zn] == True]
     group1 = dfc.groupby(unique_col)['Zn_entry'].unique()
     group2 = df[unique_col].unique()
     percentage_zone_true, percentage_zone_false = ((len(group1)/len(group2)*100), (100-(len(group1)/len(group2)*100)))
