@@ -180,8 +180,9 @@ def get_stats(extract, out_dir, analyzeTime, date):
     out_loc = "{0}/{1}".format(out_dir, out_file)
     df = prepros.csv_to_df(f_loc)
     if not os.path.exists(out_loc):
-        df = create_stats_df()
-        stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col, date)
+        df_out = create_stats_df()
+        stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col,
+                           date, df_out)
         prepros.csv_out(stats, out_loc)
     else:
         df_out = prepros.csv_to_df(out_loc)
