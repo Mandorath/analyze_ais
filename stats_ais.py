@@ -27,15 +27,15 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     group2 = df[unique_col].unique()
     percentage_zone_true, percentage_zone_false = ((len(group1)/len(group2)*100), (100-(len(group1)/len(group2)*100)))
 
-    dfstats = {'date': date,
-               'Gap_true': percentage_gap_true,
-               'Gap_false': percentage_gap_false,
-               'Speed_true': percentage_speed_true,
-               'Speed_false': percentage_speed_false,
-               'Zone_true': percentage_zone_true,
-               'Zone_false': percentage_zone_false,
-               }
-
+    stats = {'date': date,
+             'Gap_true': percentage_gap_true,
+             'Gap_false': percentage_gap_false,
+             'Speed_true': percentage_speed_true,
+             'Speed_false': percentage_speed_false,
+             'Zone_true': percentage_zone_true,
+             'Zone_false': percentage_zone_false,
+             }
+    dfstats = pd.DataFrame(stats)
     df_out.append(dfstats, ignore_index=True)
     return df_out
 
