@@ -37,7 +37,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
              }
     dfstats = pd.DataFrame(stats)
     df_t = df_out
-    df_t.append(dfstats, ignore_index=True)
+    df_t = df_t.append(dfstats, ignore_index=True)
     return df_t
 
 
