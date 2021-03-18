@@ -7,7 +7,7 @@
 statistics:
   - elem: "Passenger"
     column: "Ship type"
-    out_file: "Passenger2.out"
+    out_file: "Passenger_stats.out"
     unique_column: "MMSI"
     column_ais: "AIS_G"
     column_speed: "flag_spd_chng"
