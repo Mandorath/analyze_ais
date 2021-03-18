@@ -170,16 +170,15 @@ def prep_analysis(extract, l_poly, out_dir, analyzeTime):
 def get_stats(extract, out_dir, analyzeTime):
     out_file = extract['out_file']
     unique_col = extract['unique_column']
-    ais_gap = extract['ais_gap']
-    l_win = extract['l_bound_win']
-    u_win = extract['u_bound_win']
-    w_size = extract['window_size']
-    s_column = extract['speed_column']
-    t_column = extract['time_column']
+    col_ais = extract['column_ais']
+    col_spd = extract['column_speed']
+    col_zn = extract['column_zone']
     in_file = extract['in_file']
-    stats = calc_stats()
+    f_loc = "{0}/{1}".format(out_dir, in_file)
+    df = prepros.csv_to_df(f_loc)
+    stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col)
     out_loc = "{0}/{1}".format(out_dir, out_file)
-    prepros.csv_out(df_tot, out_loc)
+    prepros.csv_out(stats, out_loc)
 
 
 
@@ -259,12 +258,9 @@ if __name__ == '__main__':
             p.start()
     if 'statistics' in instruct:
         analyzeTime = datetime.now()
-        if 'polygon' in instruct:
-            l_poly = instruct['polygon']['poly_file']
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=get_stats,
                                         args=(extract,
-                                              l_poly,
                                               out_dir,
                                               analyzeTime,
                                               ))
