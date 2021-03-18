@@ -176,18 +176,22 @@ def get_stats(extract, out_dir, analyzeTime, date):
     col_spd = extract['column_speed']
     col_zn = extract['column_zone']
     in_file = extract['in_file']
+    date_m = date[:-2]
+    print(date_m)
     f_loc = "{0}/{1}".format(out_dir, in_file)
-    out_loc = "{0}/{1}".format(out_dir, out_file)
+    out_loc = "/home/maurice/{0}/{1}".format(date_m, out_file)
+    out_dir_m = "/home/maurice/{0}".format(date_m)
     df = prepros.csv_to_df(f_loc)
+    setup_dir(out_dir_m)
     if not os.path.exists(out_loc):
-        df_out = create_stats_df()
+        df_o = create_stats_df()
         stats = calc_stats(df, col_ais, col_spd, col_zn, unique_col,
-                           date, df_out)
+                           date, df_o)
         prepros.csv_out(stats, out_loc)
     else:
-        df_out = prepros.csv_to_df(out_loc)
+        df_o = prepros.csv_to_df(out_loc)
         stats = calc_stats(df, col_ais, col_spd, col_zn,
-                           unique_col, date, df_out)
+                           unique_col, date, df_o)
         prepros.csv_out(stats, out_loc)
 
 

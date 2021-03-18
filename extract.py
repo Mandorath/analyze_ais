@@ -107,4 +107,4 @@ class PreProcess():
 
         """
         log.info("Writing to CSV file {0}".format(filename))
-        df.to_csv(filename)
+        df.to_csv(filename, index=False)

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
@@ -7,6 +8,17 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     '''
     # df = pd.read_csv(file, delimiter=",")
     # the percentage of "True" in AIS gaps
+    df['spd_and_gap'] = pd.np.where(df[['flag_spd_chng',
+                                        'AIS_G']].eq(True).all(1, skipna=True), True,
+                             pd.np.where(df[['flag_spd_chng',
+                                             'AIS_G']].isnull().all(1), None,
+                                                                        False))
+    df['spd_gap_zn'] = pd.np.where(df[['flag_spd_chng',
+                                      'AIS_G', 'Zn_entry']].eq(True).all(1, skipna=True), True,
+                                      pd.np.where(df[['flag_spd_chng',
+                                                      'AIS_G']].isnull().all(1), None,
+                                                                        False))
+    print(df)
     percent_g = df[col_ais].value_counts(normalize=True,
                                            sort=True,
                                            ascending=True
@@ -21,22 +33,53 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     percentage_speed_true = percent_sc.at[0, 'Percentage']
     percentage_speed_false = percent_sc.at[1, 'Percentage']
     # the percentage of "True" in zone entry with unique MMSI number
-    dfc = df[df[col_zn] is True]
+    dfc = df[df[col_zn] == True]
     group1 = dfc.groupby(unique_col)['Zn_entry'].unique()
     group2 = df[unique_col].unique()
     percentage_zone_true, percentage_zone_false = ((len(group1)/len(group2)*100), (100-(len(group1)/len(group2)*100)))
+    percentage_spd_gap = df['spd_and_gap'].value_counts(normalize=True,
+                                                        sort=True,
+                                                        ascending=True
+                                                        ).mul(100).rename_axis('spd_gap').reset_index(name='Percentage')
+    print(percentage_spd_gap)
+    percentage_spd_gap_t = percentage_spd_gap.at[0, 'spd_gap']
+    if not percentage_spd_gap_t:
+        percentage_spd_gap_true = 0.0
+        percentage_spd_gap_false = percentage_spd_gap.at[0, 'Percentage']
+    else:
+        percentage_spd_gap_true = percentage_spd_gap.at[0, 'Percentage']
+        percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
+    percentage_all = df['spd_gap_zn'].value_counts(normalize=True,
+                                                   sort=True,
+                                                   ascending=True,
+                                                   dropna=False
+                                                   ).mul(100).rename_axis('spd_gap_zn').reset_index(name='Percentage')
+    print(percentage_all)
+    percentage_all_t = percentage_all.at[0, 'spd_gap_zn']
+    print(percentage_all_t)
+    if not percentage_all_t:
+        percentage_all_true = 0.0
+        percentage_all_false = percentage_all.at[0, 'Percentage']
+    else:
+        percentage_all_true = percentage_all.at[0, 'Percentage']
+        percentage_all_false = percentage_all.at[1, 'Percentage']
+    stats = {'date': [date],
+             'Gap_true': [percentage_gap_true],
+             'Gap_false': [percentage_gap_false],
+             'Speed_true': [percentage_speed_true],
+             'Speed_false': [percentage_speed_false],
+             'Zone_true': [percentage_zone_true],
+             'Zone_false': [percentage_zone_false],
+             'spd_gap_true': [percentage_spd_gap_true],
+             'spd_gap_false': [percentage_spd_gap_false],
+             'all_true': [percentage_all_true],
+             'all_false': [percentage_all_false],
+             }
 
-    dfstats = {'date': date,
-               'Gap_true': percentage_gap_true,
-               'Gap_false': percentage_gap_false,
-               'Speed_true': percentage_speed_true,
-               'Speed_false': percentage_speed_false,
-               'Zone_true': percentage_zone_true,
-               'Zone_false': percentage_zone_false,
-               }
-
-    df_out = df_out.append(dfstats)
-    return df_out
+    dfstats = pd.DataFrame(stats)
+    df_t = df_out
+    df_t = df_t.append(dfstats, ignore_index=True)
+    return df_t
 
 
 def create_stats_df():
