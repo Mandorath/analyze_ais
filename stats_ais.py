@@ -49,7 +49,6 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out):
     else:
         percentage_spd_gap_true = percentage_spd_gap.at[0, 'Percentage']
         percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
-    percentage_spd_gap_false = percentage_spd_gap.at[1, 'Percentage']
     percentage_all = df['spd_gap_zn'].value_counts(normalize=True,
                                                    sort=True,
                                                    ascending=True,
