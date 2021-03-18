@@ -248,6 +248,8 @@ if __name__ == '__main__':
             p.start()
     if 'analyze' in instruct:
         analyzeTime = datetime.now()
+        if 'polygon' in instruct:
+            l_poly = instruct['polygon']['poly_file']
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=prep_analysis,
                                         args=(extract,
@@ -261,6 +263,7 @@ if __name__ == '__main__':
         for extract in instruct['analyze']:
             p = multiprocessing.Process(target=get_stats,
                                         args=(extract,
+                                              l_poly,
                                               out_dir,
                                               analyzeTime,
                                               ))
