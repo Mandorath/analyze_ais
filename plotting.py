@@ -51,7 +51,7 @@ def plot_stats(cargo, tanker, fishing, passenger, date_string,
     g=sns.relplot(x='date', y='all_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("Percentage of vessels p/d")
-    plt.title("All anomalies {0}".format(date_string))
+    plt.title("All combined {0}".format(date_string))
     plt.savefig('{1}/all_true_{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #####
