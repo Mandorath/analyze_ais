@@ -142,9 +142,9 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig('{1}/pass{0}_combined.png'.format(date, out_dir))
 
 
-def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
-               out_dir, date, compare_date, cm_cargo, cm_tanker,
-               cm_fishing, compare_pass):
+def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
+                  out_dir, date, compare_date, cm_cargo, cm_tanker,
+                  cm_fishing, compare_pass):
     #1
     sns.set_palette("husl")
     concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), cm_cargo.assign(cm_cargo='201907')])
