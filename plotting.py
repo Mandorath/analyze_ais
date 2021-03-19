@@ -74,7 +74,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for Cargo ships in  {0}".format(date_string))
-    plt.savefig('{1}/cargo{0}.png'.format(date, out_dir))
+    plt.savefig('{1}/cargo{0}.png'.format(date, out_dir),
+                bbox_inches="tight")
 
     #2
     plt.clf()
@@ -82,7 +83,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for Tankers in  {0}".format(date_string))
-    plt.savefig('{1}/tankers{0}.png'.format(date, out_dir))
+    plt.savefig('{1}/tankers{0}.png'.format(date, out_dir),
+                bbox_inches="tight")
 
     #3
     plt.clf()
@@ -90,7 +92,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for fishing vessels  {0}".format(date_string))
-    plt.savefig('{1}/fish{0}.png'.format(date, out_dir))
+    plt.savefig('{1}/fish{0}.png'.format(date, out_dir),
+                bbox_inches="tight")
 
 
     #4
@@ -99,7 +102,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
-    plt.savefig('{1}/pass{0}.png'.format(date, out_dir))
+    plt.savefig('{1}/pass{0}.png'.format(date, out_dir),
+                bbox_inches="tight")
 
     #1
     plt.clf()
@@ -107,7 +111,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for Cargo ships in  {0}".format(date_string))
-    plt.savefig('{1}/cargo{0}_combined.png'.format(date, out_dir))
+    plt.savefig('{1}/cargo{0}_combined.png'.format(date, out_dir),
+                bbox_inches="tight")
 
     #2
     plt.clf()
@@ -115,7 +120,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for Tankers in  {0}".format(date_string))
-    plt.savefig('{1}/tankers{0}_combined.png'.format(date, out_dir))
+    plt.savefig('{1}/tankers{0}_combined.png'.format(date, out_dir),
+                bbox_inches="tight")
 
     #3
     plt.clf()
@@ -123,7 +129,8 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.xlabel("date")
     plt.ylabel("percentage")
     plt.title("Anomalies for fishing vessels  {0}".format(date_string))
-    plt.savefig('{1}/fish{0}_combined.png'.format(date, out_dir))
+    plt.savefig('{1}/fish{0}_combined.png'.format(date, out_dir),
+                bbox_inches="tight")
 
 
     #4
@@ -133,3 +140,40 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.ylabel("percentage")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
     plt.savefig('{1}/pass{0}_combined.png'.format(date, out_dir))
+
+
+def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
+               out_dir, date, compare_date, cm_cargo, cm_tanker,
+               cm_fishing, compare_pass):
+    #1
+    sns.set_palette("husl")
+    concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), cm_cargo.assign(cm_cargo='201907')])
+    g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Compare AIS gap between 2019 and 2020")
+    plt.savefig("Cargo_{0}vs{1}_.png".format(date, compare_date))
+
+    sns.set_palette("husl")
+    concatenated = pd.concat([df_tanker.assign(dataset='df_tanker'), cm_tanker.assign(cm_tanker='201907')])
+    g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Compare AIS gap between 2019 and 2020")
+    plt.savefig("tanker_{0}vs{1}_.png".format(date, compare_date))
+
+    sns.set_palette("husl")
+    concatenated = pd.concat([df_fishing.assign(dataset='df_fishing'), cm_fishing.assign(cm_fishing='201907')])
+    g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Compare AIS gap between 2019 and 2020")
+    plt.savefig("fishing_{0}vs{1}_.png".format(date, compare_date))
+
+    sns.set_palette("husl")
+    concatenated = pd.concat([df_passenger.assign(dataset='df_passenger'), compare_pass.assign(compare_pass='201907')])
+    g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
+    g.fig.autofmt_xdate()
+    plt.ylabel("percentage")
+    plt.title("Compare AIS gap between 2019 and 2020")
+    plt.savefig("passenger_{0}vs{1}_.png".format(date, compare_date))
