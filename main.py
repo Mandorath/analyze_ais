@@ -230,7 +230,7 @@ def get_plots(extract, out_dir, analyzeTime, date):
         compare_stats(df_cargo, df_tanker, df_fishing, df_passenger,
                       date_string,
                       out_dir, date_t, compare_date, cm_cargo, cm_tanker,
-                      cm_fishing, compare_pass)
+                      cm_fishing, cm_passenger)
 
 
 def setup_dir(path):
