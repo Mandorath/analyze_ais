@@ -2,16 +2,16 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
+def plot_stats(cargo, tanker, fishing, passenger, date_string,
                out_dir, date):
     '''
     Statistics calculation function.
     '''
 
-    df_cargo['date'] = pd.to_datetime(df_cargo['date'], format='%Y%m%d')
-    df_tanker['date'] = pd.to_datetime(df_tanker['date'], format='%Y%m%d')
-    df_fishing['date'] = pd.to_datetime(df_fishing['date'], format='%Y%m%d')
-    df_passenger['date'] = pd.to_datetime(df_passenger['date'], format='%Y%m%d')
+    cargo['date'] = pd.to_datetime(cargo['date'], format='%Y%m%d')
+    tanker['date'] = pd.to_datetime(tanker['date'], format='%Y%m%d')
+    fishing['date'] = pd.to_datetime(fishing['date'], format='%Y%m%d')
+    passenger['date'] = pd.to_datetime(passenger['date'], format='%Y%m%d')
 
     #######
     # date vs types
@@ -19,40 +19,40 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
 
     #1
     sns.set_palette("husl")
-    concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), df_tanker.assign(dataset='df_tanker'), df_fishing.assign(dataset="df_fishing"), df_passenger.assign(dataset="df_passenger")])
+    concatenated = pd.concat([cargo.assign(dataset='cargo'), tanker.assign(dataset='tanker'), fishing.assign(dataset="fishing"), passenger.assign(dataset="passenger")])
     g=sns.relplot(x='date', y='Zone_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Zone entry for 4 ship types in {0}".format(date_string))
     plt.savefig('{1}/zone{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #2
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("AIS Gaps for 4 ship types in  {0}".format(date_string))
     plt.savefig('{1}/gap{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #3
     g=sns.relplot(x='date', y='Speed_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
     plt.savefig('{1}/sc{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #4
     g=sns.relplot(x='date', y='spd_gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
     plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #5
     g=sns.relplot(x='date', y='all_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
-    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir), bbox_inches="tight")
+    plt.savefig('{1}/all_true_{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #####
     # date vs anomalies
@@ -72,7 +72,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Cargo2)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for Cargo ships in  {0}".format(date_string))
     plt.savefig('{1}/cargo{0}.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -81,7 +81,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Tanker2)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for Tankers in  {0}".format(date_string))
     plt.savefig('{1}/tankers{0}.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -90,7 +90,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Fishing2)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for fishing vessels  {0}".format(date_string))
     plt.savefig('{1}/fish{0}.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -100,7 +100,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Passenger2)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
     plt.savefig('{1}/pass{0}.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -109,7 +109,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Cargo3)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for Cargo ships in  {0}".format(date_string))
     plt.savefig('{1}/cargo{0}_combined.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -118,7 +118,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Tanker3)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for Tankers in  {0}".format(date_string))
     plt.savefig('{1}/tankers{0}_combined.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -127,7 +127,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Fishing3)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for fishing vessels  {0}".format(date_string))
     plt.savefig('{1}/fish{0}_combined.png'.format(date, out_dir),
                 bbox_inches="tight")
@@ -137,42 +137,46 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.clf()
     sns.lineplot(data=Passenger3)
     plt.xlabel("date")
-    plt.ylabel("percentage")
+    plt.ylabel("Percentage of vessels p/d")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
     plt.savefig('{1}/pass{0}_combined.png'.format(date, out_dir),
                 bbox_inches="tight")
 
 
-def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
+def compare_stats(cargo, tanker, fishing, passenger, date_string,
                   out_dir, date, compare_date, cm_cargo, cm_tanker,
                   cm_fishing, compare_pass):
     #1
+    plt.clf()
     sns.set_palette("husl")
-    concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), cm_cargo.assign(dataset='cm_cargo')])
+    concatenated = pd.concat([cargo.assign(dataset='cargo'), cm_cargo.assign(dataset='cm_cargo')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Compare AIS gap between 2019 and 2020")
     plt.savefig("{2}/Cargo_{0}vs{1}_.png".format(date, compare_date, out_dir))
 
+    plt.clf()
     sns.set_palette("husl")
-    concatenated = pd.concat([df_tanker.assign(dataset='df_tanker'), cm_tanker.assign(dataset='cm_tanker')])
+    concatenated = pd.concat([tanker.assign(dataset='tanker'), cm_tanker.assign(dataset='cm_tanker')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Compare AIS gap between 2019 and 2020")
     plt.savefig("{2}/tanker_{0}vs{1}_.png".format(date, compare_date, out_dir))
 
+    plt.clf()
     sns.set_palette("husl")
-    concatenated = pd.concat([df_fishing.assign(dataset='df_fishing'), cm_fishing.assign(dataset='cm_fishing')])
+    concatenated = pd.concat([fishing.assign(dataset='fishing'), cm_fishing.assign(dataset='cm_fishing')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Compare AIS gap between 2019 and 2020")
     plt.savefig("{2}/fishing_{0}vs{1}_.png".format(date, compare_date, out_dir))
 
+    plt.clf()
     sns.set_palette("husl")
-    concatenated = pd.concat([df_passenger.assign(dataset='df_passenger'), compare_pass.assign(dataset='compare_pass')])
+    concatenated = pd.concat([passenger.assign(dataset='passenger'), compare_pass.assign(dataset='compare_pass')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
