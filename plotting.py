@@ -24,40 +24,35 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Zone entry for 4 ship types in {0}".format(date_string))
-    plt.savefig('{1}/zone{0}.png'.format(date, out_dir),
-                bbox_inches="tight)
+    plt.savefig('{1}/zone{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #2
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("AIS Gaps for 4 ship types in  {0}".format(date_string))
-    plt.savefig('{1}/gap{0}.png'.format(date, out_dir),
-                bbox_inches="tight)
+    plt.savefig('{1}/gap{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #3
     g=sns.relplot(x='date', y='Speed_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
-    plt.savefig('{1}/sc{0}.png'.format(date, out_dir),
-                bbox_inches="tight)
+    plt.savefig('{1}/sc{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #4
     g=sns.relplot(x='date', y='spd_gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
-    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir),
-                bbox_inches="tight)
+    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #5
     g=sns.relplot(x='date', y='all_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
     plt.title("Speed change for 4 ship types in  {0}".format(date_string))
-    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir),
-                bbox_inches="tight)
+    plt.savefig('{1}/sp_and_gap{0}.png'.format(date, out_dir), bbox_inches="tight")
 
     #####
     # date vs anomalies
