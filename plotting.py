@@ -140,7 +140,7 @@ def plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.ylabel("percentage")
     plt.title("Anomalies for passenger ships in  {0}".format(date_string))
     plt.savefig('{1}/pass{0}_combined.png'.format(date, out_dir),
-                bbox_inches="tight)
+                bbox_inches="tight")
 
 
 def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
