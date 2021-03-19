@@ -58,15 +58,15 @@ def plot_stats(cargo, tanker, fishing, passenger, date_string,
     # date vs anomalies
     #####
 
-    Cargo2=df_cargo[["date","Gap_true","Speed_true","Zone_true"]]
-    Fishing2=df_fishing[["date","Gap_true","Speed_true","Zone_true"]]
-    Tanker2=df_tanker[["date","Gap_true","Speed_true","Zone_true"]]
-    Passenger2=df_passenger[["date","Gap_true","Speed_true","Zone_true"]]
+    Cargo2=cargo[["date","Gap_true","Speed_true","Zone_true"]]
+    Fishing2=fishing[["date","Gap_true","Speed_true","Zone_true"]]
+    Tanker2=tanker[["date","Gap_true","Speed_true","Zone_true"]]
+    Passenger2=passenger[["date","Gap_true","Speed_true","Zone_true"]]
 
-    Cargo3=df_cargo[["spd_gap_true", "all_true"]]
-    Fishing3=df_fishing[["spd_gap_true", "all_true"]]
-    Tanker3=df_tanker[["spd_gap_true", "all_true"]]
-    Passenger3=df_passenger[["spd_gap_true", "all_true"]]
+    Cargo3=cargo[["spd_gap_true", "all_true"]]
+    Fishing3=fishing[["spd_gap_true", "all_true"]]
+    Tanker3=tanker[["spd_gap_true", "all_true"]]
+    Passenger3=passenger[["spd_gap_true", "all_true"]]
 
     #1
     plt.clf()
