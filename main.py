@@ -226,9 +226,11 @@ def get_plots(extract, out_dir, analyzeTime, date):
     df_passenger = prepros.csv_to_df(pass_loc)
     plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
                out_dir, date_t)
-    compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
-                  out_dir, date_t, compare_date, cm_cargo, cm_tanker,
-                  cm_fishing, compare_pass)
+    if 'compare' in extract:
+        compare_stats(df_cargo, df_tanker, df_fishing, df_passenger,
+                      date_string,
+                      out_dir, date_t, compare_date, cm_cargo, cm_tanker,
+                      cm_fishing, compare_pass)
 
 
 def setup_dir(path):
