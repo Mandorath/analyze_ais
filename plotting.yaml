@@ -25,6 +25,7 @@ plotting:
     tanker_f: "Tanker_stats.out"
     fishing_f: "Fishing_stats.out"
     passenger_f: "Passenger_stats.out"
+    compare:  False
   - date: "202008"
     out_dir: "/home/maurice"
     date_string: "August 2019"
@@ -32,3 +33,4 @@ plotting:
     tanker_f: "Tanker_stats.out"
     fishing_f: "Fishing_stats.out"
     passenger_f: "Passenger_stats.out"
+    compare:  False

@@ -205,7 +205,8 @@ def get_plots(extract, out_dir, analyzeTime, date):
     fishing_f = extract['fishing_f']
     passenger_f = extract['passenger_f']
     out_dir = extract['out_dir']
-    if 'compare' in extract:
+    compare = extract['compare']
+    if compare:
         compare_date = extract['compare_date']
         compare_car = "{0}/{1}/{2}".format(out_dir, compare_date, cargo_f)
         compare_tank = "{0}/{1}/{2}".format(out_dir, compare_date, tanker_f)
@@ -215,7 +216,6 @@ def get_plots(extract, out_dir, analyzeTime, date):
         cm_tanker = prepros.csv_to_df(compare_tank)
         cm_fishing = prepros.csv_to_df(compare_fish)
         cm_passenger = prepros.csv_to_df(compare_pass)
-
     car_loc = "{0}/{1}/{2}".format(out_dir, date_t, cargo_f)
     tank_loc = "{0}/{1}/{2}".format(out_dir, date_t, tanker_f)
     fish_loc = "{0}/{1}/{2}".format(out_dir, date_t, fishing_f)
@@ -226,7 +226,7 @@ def get_plots(extract, out_dir, analyzeTime, date):
     df_passenger = prepros.csv_to_df(pass_loc)
     plot_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
                out_dir, date_t)
-    if 'compare' in extract:
+    if compare:
         compare_stats(df_cargo, df_tanker, df_fishing, df_passenger,
                       date_string,
                       out_dir, date_t, compare_date, cm_cargo, cm_tanker,
