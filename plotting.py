@@ -147,7 +147,7 @@ def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
                   cm_fishing, compare_pass):
     #1
     sns.set_palette("husl")
-    concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), cm_cargo.assign(cm_cargo='201907')])
+    concatenated = pd.concat([df_cargo.assign(dataset='df_cargo'), cm_cargo.assign(dataset='cm_cargo')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
@@ -155,7 +155,7 @@ def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig("Cargo_{0}vs{1}_.png".format(date, compare_date))
 
     sns.set_palette("husl")
-    concatenated = pd.concat([df_tanker.assign(dataset='df_tanker'), cm_tanker.assign(cm_tanker='201907')])
+    concatenated = pd.concat([df_tanker.assign(dataset='df_tanker'), cm_tanker.assign(dataset='cm_tanker')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
@@ -163,7 +163,7 @@ def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig("tanker_{0}vs{1}_.png".format(date, compare_date))
 
     sns.set_palette("husl")
-    concatenated = pd.concat([df_fishing.assign(dataset='df_fishing'), cm_fishing.assign(cm_fishing='201907')])
+    concatenated = pd.concat([df_fishing.assign(dataset='df_fishing'), cm_fishing.assign(dataset='cm_fishing')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
@@ -171,7 +171,7 @@ def compare_stats(df_cargo, df_tanker, df_fishing, df_passenger, date_string,
     plt.savefig("fishing_{0}vs{1}_.png".format(date, compare_date))
 
     sns.set_palette("husl")
-    concatenated = pd.concat([df_passenger.assign(dataset='df_passenger'), compare_pass.assign(compare_pass='201907')])
+    concatenated = pd.concat([df_passenger.assign(dataset='df_passenger'), compare_pass.assign(dataset='compare_pass')])
     g=sns.relplot(x='date', y='Gap_true', data=concatenated ,kind='line', hue= 'dataset' , style='dataset')
     g.fig.autofmt_xdate()
     plt.ylabel("percentage")
