@@ -195,6 +195,7 @@ def get_stats(extract, out_dir, analyzeTime, date):
         prepros.csv_out(new_df, out_loc2)
     else:
         df_o = prepros.csv_to_df(out_loc)
+        new_df = prepros.csv_to_df(out_loc2)
         stats, new_df  = calc_stats(df, col_ais, col_spd, col_zn,
                            unique_col, date, df_o, ship_count)
         prepros.csv_out(stats, out_loc)
