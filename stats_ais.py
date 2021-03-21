@@ -18,7 +18,8 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out, ship_coun
                                       pd.np.where(df[['flag_spd_chng',
                                                       'AIS_G']].isnull().all(1), None,
                                                                         False))
-    print(df)
+    new_df = df[((df['flag_spd_chng'] == True) & (df['AIS_G'] == True) & (df['Zn_entry'] == True))]
+    print(new_df)
     percent_g = df[col_ais].value_counts(normalize=True,
                                            sort=True,
                                            ascending=True
@@ -80,7 +81,7 @@ def calc_stats(df, col_ais, col_spd, col_zn, unique_col, date, df_out, ship_coun
     dfstats = pd.DataFrame(stats)
     df_t = df_out
     df_t = df_t.append(dfstats, ignore_index=True)
-    return df_t
+    return df_t, new_df
 
 
 def create_stats_df():
